@@ -1,0 +1,201 @@
+<ng-container *ngIf="loanDetail">
+  <div class="bg-lightPurple rounded-20 p-3">
+    <div class="row mb-2">
+      <div class="col text-center text-mute">
+        <h5>
+          وام شماره : {{loanDetail.loanNumber}}
+        </h5>
+      </div>
+    </div>
+    <div class="row mt-2 text-mute">
+      <div class="col">
+        <label>
+          وام دریافتی :
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h6 class="text-left text-darkBlue">
+          {{loanDetail.amount | amount}}
+        </h6>
+      </div>
+    </div>
+    <div class="row text-mute">
+      <div class="col">
+        <label>
+          نوع اقساط :
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h6 class="text-left text-mute">
+          قرض الحسنه {{loanDetail.feesAmount | amount}}
+        </h6>
+      </div>
+    </div>
+    <div class="row text-mute">
+      <div class="col">
+        <label>
+          تاریخ دریافت وام :
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h6 class="text-left text-mute">
+          {{loanDetail.confirmDate}}
+        </h6>
+      </div>
+    </div>
+    <div class="row text-mute">
+      <div class="col">
+        <label>
+          دایره های حامی:
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h6 class="text-left text-mute" *ngFor="let item of loanDetail.loanGuarantees"
+            [ngClass]="{'text-truncate':loanDetail.loanGuarantees.length>2}">
+          {{item.description}}
+        </h6>
+      </div>
+    </div>
+  </div>
+  <mat-checkbox class="w-100" *ngFor="let item of loanDetail.installments"
+                (change)="selectedInstallments($event,item.installmentNumber)" [disabled]="item.installmentState==190301">
+    <a class="row bg-white p-2 mt-2 mr-1 rounded-20 shadow-sm mx-0">
+      <div class="col">
+        <span class="text-mute">
+          قسط {{item.installmentNumber | persianNumber}}
+        </span>
+        <div class="text-gray">
+          <small>
+            مبلغ : {{item.amount | amount}}
+          </small>
+        </div>
+      </div>
+      <div class="col align-self-center text-left text-dark">
+        <div class="text-mute">
+          <small>
+            تاریخ سررسید : {{item.dueDate}}
+          </small>
+        </div>
+        <div class="text-mute"
+          [ngClass]="{'text-danger' :item.installmentState==190304 , 'text-warning' :item.installmentState==190303}">
+          <small>
+            {{item.installmentState |installmentState}}
+          </small>
+        </div>
+        <div *ngIf="item.installmentState==190301" class="text-success">
+          <small>
+            تاریخ پرداخت : {{item.paymentDate}}
+          </small>
+        </div>
+      </div>
+    </a>
+  </mat-checkbox>
+  <div class="btn-fix">
+    <div class="row">
+      <div class="col text-center">
+        <button type="submit" (click)="getRepayInfo()"
+                class="btn btn-link bg-yellow text-dark w-75 rounded-pill">
+          انتخاب و پرداخت
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+
+<div class="modal fade" id="infoRepayModal" tabindex="-1" role="dialog" aria-labelledby="infoRepayModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog m-4 modal-dialog-centered" role="document">
+    <div class="modal-content rounded-20">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col text-center">
+            <img src="assets/svg/warning.svg" alt="">
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col text-center">
+            <h6 class="text-mute">
+              آیا از انجام این کار اطمینان دارید؟
+            </h6>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center border-top-0 text-center d-block">
+        <button type="button" class="btn btn-warning w-75 rounded-pill text-center" (click)="confirmGetRepayInfo()">بله</button>
+        <div class="row">
+          <div class="col text-center">
+            <button type="button" class="btn" data-dismiss="modal">خیر</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="repayModal" tabindex="-1" role="dialog" aria-labelledby="repayModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog m-4 modal-dialog-centered" role="document">
+    <div class="modal-content rounded-20">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col text-center">
+            <img src="assets/svg/warning.svg" alt="">
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col text-center">
+            <h6 class="text-mute">
+            مبلغ کیف پول شما از مبلغ پرداختی کمتر است. آیا مایلید کیف پول خود را شارژ کنید ؟
+            </h6>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center border-top-0 text-center d-block">
+        <button type="button" class="btn btn-warning w-75 rounded-pill text-center" (click)="charge()">بله</button>
+        <div class="row">
+          <div class="col text-center">
+            <button type="button" class="btn" data-dismiss="modal">خیر</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="successRepayModal" tabindex="-1" role="dialog" aria-labelledby="successRepayModalLabel"
+     aria-hidden="true">
+<div class="modal-dialog m-3 modal-dialog-centered" role="document">
+  <div class="modal-content rounded-20">
+    <div class="modal-body">
+      <div class="row">
+        <div class="col text-center">
+          <img src="assets/svg/success.svg" alt="">
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col text-center">
+          <h6 class="text-mute">
+            عملیات با موفقیت انجام شد
+          </h6>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer justify-content-center border-top-0">
+      <button type="button" class="btn btn-success w-75 rounded-pill text-center" (click)="confirmOnSuccessRepay()">باشه</button>
+    </div>
+  </div>
+</div>
+</div>

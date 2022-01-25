@@ -1,0 +1,185 @@
+<ng-container>
+  <mat-horizontal-stepper [linear]="isLinear" #stepper class="dir-ltr custom">
+    <ng-template matStepperIcon="edit">
+      <mat-icon>done</mat-icon>
+    </ng-template>
+    <form [formGroup]="newOrganizationFundForm">
+      <mat-step>
+        <div class="row">
+          <div class="col">
+            <p class="text-mute">
+              نام سازمان یا شرکت خود را وارد کنید.
+            </p>
+            <div class="row mt-3">
+              <div class="col">
+                <text-box label="نام سازمان / شرکت" formControlName="name"></text-box>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col">
+            <p class="text-mute">
+              حق عضویت افراد مبلغی است که از لحظه ورود به دایره تا لحظه دریافت وام میتوانند آن را پرداخت کنند. این مبلغ
+              می تواند صفر باشد.
+            </p>
+            <div class="row mt-3">
+              <div class="col">
+                <text-box label="حق عضویت افراد" formControlName="membershipFee" [(ngModel)]="membershipFee"></text-box>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-4" *ngFor="let item of membershipFeeList">
+            <button type="button" class="btn bg-lightPurple rounded-20 w-100 dir-rtl"
+                    [ngClass]="{'bg-purple , text-light' : item.active}"
+                    (click)="setMembershipFee(item.value);">
+              <small>
+                {{item.value | amountSeparator}}
+              </small>
+            </button>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col">
+            <p class="text-mute">
+              افراد می توانند هنگام بازپرداخت وام، درصدی از مبلغ را به عنوان سود به دایره بازگردانند. مقدار سود میتواند
+              بین صفر تا 18 درصد باشد.
+            </p>
+            <div class="row mt-3">
+              <div class="col">
+                <text-box label="سود وام" formControlName="loanInterest" [(ngModel)]="loanInterest"></text-box>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-4" *ngFor="let item of loanInterestList">
+            <button type="button" class="btn bg-lightPurple rounded-20 w-100 dir-rtl"
+                    [ngClass]="{'bg-purple , text-light' : item.active}"
+                    (click)="setLoanInterest(item.value);">
+              <small>
+                {{item.value | percentWord}}
+              </small>
+            </button>
+          </div>
+        </div>
+        <div class="btn-fix">
+          <div class="row">
+            <div class="col">
+              <button type="button" matStepperPrevious
+                      class="btn btn-light text-yellow rounded-pill">
+                مرحله قبل
+              </button>
+            </div>
+            <div class="col-8 text-right">
+              <button type="button" (click)="step1(newOrganizationFundForm,stepper)"
+                      class="btn bg-yellow text-dark w-100 rounded-pill">
+                مرحله بعد
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-step>
+      <mat-step>
+        <div class="row">
+          <div class="col">
+            <p class="text-mute mb-4">
+              سقف و کف مبلغ وام دهی را مشخص کنید تا افراد بدانند حداکثر چه وامی میتوانند دریافت کنند.
+            </p>
+            <div class="row mt-3">
+              <div class="col">
+                <text-box label="کف مبلغ وام دهی" formControlName="minLoanAmount" [(ngModel)]="minLoanAmount"></text-box>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-4" *ngFor="let item of minLoanAmountList">
+            <button type="button" class="btn bg-lightPurple rounded-20 w-100 dir-rtl"
+                    [ngClass]="{'bg-purple , text-light' : item.active}"
+                    (click)="setMinLoanAmount(item.value);">
+              <small>
+                {{item.value | month}}
+              </small>
+            </button>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col">
+            <text-box label="سقف مبلغ وام دهی" formControlName="maxLoanAmount" [(ngModel)]="maxLoanAmount"></text-box>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-4" *ngFor="let item of maxLoanAmountList">
+            <button type="button" class="btn bg-lightPurple rounded-20 w-100 dir-rtl"
+                    [ngClass]="{'bg-purple , text-light' : item.active}"
+                    (click)="setMaxLoanAmount(item.value);">
+              <small>
+                {{item.value | month}}
+              </small>
+            </button>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col">
+            <p class="text-mute mb-4">
+              حداقل و حداکثر تعداد اقساط به افراد می گوید حداکثر چه مدت برای پرداخت اقساط خود وقت دارند.
+            </p>
+            <div class="row mt-3">
+              <div class="col">
+                <text-box label="کف تعداد اقساط" formControlName="minInstallment" [(ngModel)]="minInstallment"></text-box>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-4" *ngFor="let item of minInstallmentList">
+                <button type="button" class="btn bg-lightPurple rounded-20 w-100 dir-rtl"
+                        [ngClass]="{'bg-purple , text-light' : item.active}"
+                        (click)="setMinInstallment(item.value);">
+                  <small>
+                    {{item.value | month}}
+                  </small>
+                </button>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col">
+                <text-box label="سقف تعداد اقساط" formControlName="maxInstallment" [(ngModel)]="maxInstallment"></text-box>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-4" *ngFor="let item of maxInstallmentList">
+                <button type="button" class="btn bg-lightPurple rounded-20 w-100 dir-rtl"
+                        [ngClass]="{'bg-purple , text-light' : item.active}"
+                        (click)="setMaxInstallment(item.value);">
+                  <small>
+                    {{item.value | month}}
+                  </small>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="btn-fix">
+          <div class="row">
+            <div class="col">
+              <button type="button" matStepperPrevious
+                      class="btn btn-light text-yellow rounded-pill">
+                مرحله قبل
+              </button>
+            </div>
+            <div class="col-8 text-right">
+              <button type="button" (click)="step2(newOrganizationFundForm,stepper)"
+                      class="btn bg-yellow text-dark w-100 rounded-pill">
+                مرحله بعد
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-step>
+    </form>
+  </mat-horizontal-stepper>
+</ng-container>
+
+

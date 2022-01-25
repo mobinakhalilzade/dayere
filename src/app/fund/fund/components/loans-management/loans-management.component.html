@@ -1,0 +1,78 @@
+<ng-container>
+  <ul class="nav nav-tabs tab-fixed pr-0 border-bottom-0" id="myTab1" role="tablist">
+    <li class="nav-item w-50 rounded-bottom-right-1">
+      <a class="nav-link pt-3 text-center" id="ongoingLoans-tab" data-toggle="tab" href="#ongoingLoans" role="tab"
+         aria-controls="ongoingLoans"
+         aria-selected="true">وام های در جریان</a>
+    </li>
+    <li class="nav-item w-50 rounded-bottom-left-1">
+      <a class="nav-link active pt-3 text-center" id="loanApplications-tab" data-toggle="tab" href="#loanApplications"
+         role="tab"
+         aria-controls="LoanApplications"
+         aria-selected="false">
+        درخواست های وام
+      </a>
+    </li>
+  </ul>
+  <div class="tab-content mt-5" id="myTabContent">
+    <div class="tab-pane fade" id="ongoingLoans" role="tabpanel" aria-labelledby="ongoingLoans-tab">
+      <ng-container *ngIf="ongoingLoans">
+        <h6 *ngIf="ongoingLoans.length==0" class="text-info text-center">
+          وام در جریانی ندارید
+        </h6>
+        <a [routerLink]="['/fund/ongoing-loan-detail',item.fundId,item.loanId]" *ngFor="let item of ongoingLoans">
+          <div class="row mx-0 bg-white p-2 mt-2 rounded-20 shadow-sm">
+            <div class="col-1 align-self-center text-left px-0">
+              <img *ngIf="item.memberImageUrl!==''" [src]="item.memberImageUrl" class="img-fluid"
+                   [alt]="item.memberSurname">
+              <img *ngIf="item.memberImageUrl==''" src="assets/images/profile-photo.png" class="img-fluid"
+                   [alt]="item.memberSurname">
+            </div>
+            <div class="col align-self-center">
+            <span class="text-mute">
+              {{item.memberName}} {{item.memberSurname}}
+            </span>
+            </div>
+            <div class="col align-self-center text-left text-dark px-0" style="direction: ltr;">
+          <span class="circle mr-1" *ngFor="let item of item.installments.slice(0,5)"
+                [ngClass]="{'bg-success':item.installmentState==190301 , 'bg-danger text-light':item.installmentState==190304 ,
+                'bg-warning':item.installmentState==190303 , 'bg-gray':item.installmentState==190302}">
+            <small>
+              {{item.installmentNumber}}
+            </small>
+          </span>
+            </div>
+          </div>
+        </a>
+      </ng-container>
+    </div>
+    <div class="tab-pane fade show active" id="loanApplications" role="tabpanel"
+         aria-labelledby="loanApplications-tab">
+      <ng-container *ngIf="requestedLoans">
+        <h6 *ngIf="requestedLoans.length==0" class="text-info text-center">
+         درخواست وامی وجود ندارد
+        </h6>
+        <a class="row mx-0 bg-white p-3 mt-2 rounded-20 shadow-sm"
+           [routerLink]="['/fund/loan-application-detail',item.fundId,item.loanId]"
+           *ngFor="let item of requestedLoans">
+          <div class="col-1 align-self-center text-left px-0">
+            <img *ngIf="item.memberImageUrl!==''" [src]="item.memberImageUrl" class="img-fluid"
+                 [alt]="item.memberFullName">
+            <img *ngIf="item.memberImageUrl==''" src="assets/images/profile-photo.png" class="img-fluid"
+                 [alt]="item.memberFullName">
+          </div>
+          <div class="col align-self-center">
+            <span class="text-mute">
+              {{item.memberFullName}}
+            </span>
+          </div>
+          <div class="col align-self-center text-left">
+            <span class="text-success">
+              {{item.loanGuarantees[0].socialLoanState | socialLoanState}}
+            </span>
+          </div>
+        </a>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>

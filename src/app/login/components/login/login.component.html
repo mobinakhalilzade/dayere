@@ -1,0 +1,71 @@
+<ng-container>
+  <div class="bg-gradient h-100">
+    <div class="pt-5">
+      <div class="row mx-0">
+        <div class="col text-center">
+          <img src="../../../../assets/icons/logo-gold.png" class="img-fluid" alt="دایره">
+        </div>
+      </div>
+      <form [formGroup]="loginForm">
+        <div class="row mx-0 mb-4">
+          <div class="col text-center text-mute">
+        <span>
+          {{code.sent ? "کد ارسال شده را وارد کنید " : "لطفا شماره تلفن همراه خود را وارد نمایید" }}
+        </span>
+          </div>
+        </div>
+        <ng-template [ngIf]="!code.sent">
+          <div class="row mx-0">
+            <div class="col">
+              <text-box [required]="true" label="شماره موبایل" formControlName="mobile" type="number">
+              </text-box>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template [ngIf]="code.sent">
+          <div class="row mx-0">
+            <div class="col">
+              <text-box label="کد ارسالی " formControlName="code" type="number">
+              </text-box>
+            </div>
+          </div>
+          <div class="row mx-0">
+            <div class="col">
+              <div class="float-left ml-2 font-weight-lighter" [counter]="code.countdown" [interval]=1000
+                   (value)="code.value = $event">
+                <div class="text-mute" *ngIf="code.value !== 0">
+                  <small class="d-block">
+                    ارسال مجدد
+                  </small>
+                  <small>
+                    تا {{code.value}} ثانیه دیگر
+                  </small>
+                </div>
+                <div class="badge btn-outline-yellow text-yellow rounded-pill py-2 px-3" *ngIf="code.value == 0">
+                  <small (click)="getCode(loginForm.value)">
+                    ارسال مجدد
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="row mx-0" style="margin-top: 15%;">
+          <div class="col text-center">
+            <button *ngIf="!code.sent" type="button" [disabled]="loading" (click)="getCode(loginForm.value)"
+                    class="btn bg-yellow text-dark rounded-pill w-75">
+              تایید
+            </button>
+            <button *ngIf="code.sent" type="button" [disabled]="loading" (click)="login(loginForm.value)"
+                    class="btn bg-yellow text-dark rounded-pill w-100">
+              تایید
+            </button>
+          </div>
+          <div class="col-2" *ngIf="code.sent">
+            <i class="fas fa-chevron-left text-yellow fa-2x" (click)="code.sent=false"></i>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-container>

@@ -1,0 +1,17 @@
+<ng-container>
+  <div class="row mx-0 mt-2 bg-white rounded-20 p-3 shadow" *ngFor="let item of priorityList">
+    <div class="col-2">
+      <img *ngIf="item.imageUrl == ''" src="assets/images/profile-photo.png" class="img-fluid" [alt]="item.name">
+      <img *ngIf="item.imageUrl !== ''" [src]="item.imageUrl" class="img-fluid" [alt]="item.name">
+    </div>
+    <div class="col align-self-center text-mute">
+      {{item.name}} {{item.surname}}
+    </div>
+    <div class="col-4 align-self-center">
+      <small class="float-left text-mute">
+        {{item.priorityDate}}
+      </small>
+    </div>
+  </div>
+</ng-container>
+

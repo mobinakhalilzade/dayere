@@ -1,0 +1,18 @@
+<ng-container>
+    <div class="row justify-content-center mx-0">
+      <div class="col text-mute">
+        <p *ngFor="let item of terms">
+          {{item.text}}
+        </p>
+      </div>
+    </div>
+    <div class="btn-fix">
+      <div class="row">
+        <div class="col text-center">
+          <button type="button" class="btn bg-yellow text-dark py-2 w-75 rounded-pill" (click)="acceptTerms()">
+            تایید
+          </button>
+        </div>
+      </div>
+    </div>
+</ng-container>

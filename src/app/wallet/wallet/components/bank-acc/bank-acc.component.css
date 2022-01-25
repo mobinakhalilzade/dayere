@@ -1,0 +1,23 @@
+.bg-card {
+  position: absolute;
+  top: 20%;
+  left: 5%;
+  width: 40%;
+  opacity: 0.18;
+}
+
+.img-fluid-logo {
+  max-width: 20%;
+  height: auto;
+}
+.deleteAndDefault {
+  position: relative;
+  top: -13px;
+}
+
+#default{
+  position: absolute;
+  top: -9px;
+  left: 15px;
+  color: #001e7f;
+}

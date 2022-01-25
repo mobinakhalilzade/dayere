@@ -1,0 +1,10 @@
+.stepper{
+  position: relative;
+  right: 0;
+}
+
+.main{
+  position: relative;
+  top: 11%;
+  width: 100%;
+}

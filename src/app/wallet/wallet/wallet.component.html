@@ -1,0 +1,22 @@
+<ng-container>
+  <header>
+    <div class="row mx-0 bg-white py-3 rounded-bottom-1 header">
+      <div class="col-2">
+
+      </div>
+      <div class="col text-center align-self-end">
+        <div class="casablanca-font text-purple font-size-title">
+          {{routeName}}
+        </div>
+      </div>
+      <div class="col-2 align-self-end">
+        <back-button></back-button>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="main">
+        <router-outlet></router-outlet>
+    </div>
+  </main>
+</ng-container>

@@ -1,0 +1,103 @@
+<ng-container>
+  <header>
+    <div class="row mx-0 bg-white py-3 rounded-bottom-1 header">
+      <div class="col-2 pr-0">
+<!--        <div *ngIf="hasFilter" (click)="showFilter=!showFilter" data-toggle="collapse" data-target="#collapseExample"-->
+<!--             aria-expanded="false" aria-controls="collapseExample" class="col-2 text-right">-->
+<!--          <div *ngIf="!showFilter">-->
+<!--            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="45"-->
+<!--                 height="45" viewBox="0 0 45 45">-->
+<!--              <defs>-->
+<!--                <clipPath id="clip-path6556">-->
+<!--                  <rect width="5" height="21" fill="none"/>-->
+<!--                </clipPath>-->
+<!--              </defs>-->
+<!--              <g id="Group_32566" data-name="Group 32566" transform="translate(-324 -27)">-->
+<!--                <circle id="Ellipse_2756" data-name="Ellipse 2657" cx="22.5" cy="22.5" r="22.5"-->
+<!--                        transform="translate(324 27)" fill="#fff"/>-->
+<!--                <g id="Repeat_Grid_3256" data-name="Repeat Grid 3265" transform="translate(344 39)"-->
+<!--                   clip-path="url(#clip-path)">-->
+<!--                  <g transform="translate(-356 -39)">-->
+<!--                    <circle id="Ellipse_2856" data-name="Ellipse 2865" cx="2.5" cy="2.5" r="2.5"-->
+<!--                            transform="translate(356 39)" fill="#3a2270"/>-->
+<!--                  </g>-->
+<!--                  <g transform="translate(-356 -32)">-->
+<!--                    <circle id="Ellipse_28-256" data-name="Ellipse 2865" cx="2.5" cy="2.5" r="2.5"-->
+<!--                            transform="translate(356 39)" fill="#3a2270"/>-->
+<!--                  </g>-->
+<!--                  <g transform="translate(-356 -25)">-->
+<!--                    <circle id="Ellipse_28-356" data-name="Ellipse 2865" cx="2.5" cy="2.5" r="2.5"-->
+<!--                            transform="translate(356 39)" fill="#3a2270"/>-->
+<!--                  </g>-->
+<!--                </g>-->
+<!--              </g>-->
+<!--            </svg>-->
+<!--          </div>-->
+<!--          <div *ngIf="showFilter">-->
+<!--            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="45"-->
+<!--                 height="45" viewBox="0 0 45 45">-->
+<!--              <defs>-->
+<!--                <clipPath id="clip-path3553">-->
+<!--                  <rect width="5" height="21" fill="none"/>-->
+<!--                </clipPath>-->
+<!--              </defs>-->
+<!--              <g id="Group_326453" data-name="Group 326453" transform="translate(-324 -27)">-->
+<!--                <circle id="Ellipse_24537" data-name="Ellipse 27345" cx="22.5" cy="22.5" r="22.5"-->
+<!--                        transform="translate(324 27)" fill="#3a2270"/>-->
+<!--                <g id="Repeat_Grid_32354" data-name="Repeat Grid 32354" transform="translate(344 39)"-->
+<!--                   clip-path="url(#clip-path)">-->
+<!--                  <g transform="translate(-356 -39)">-->
+<!--                    <circle id="Ellipse_2854" data-name="Ellipse 2835" cx="2.5" cy="2.5" r="2.5"-->
+<!--                            transform="translate(356 39)" fill="#ccc"/>-->
+<!--                  </g>-->
+<!--                  <g transform="translate(-356 -32)">-->
+<!--                    <circle id="Ellipse_28-235" data-name="Ellipse 28354" cx="2.5" cy="2.5" r="2.5"-->
+<!--                            transform="translate(356 39)" fill="#ccc"/>-->
+<!--                  </g>-->
+<!--                  <g transform="translate(-356 -25)">-->
+<!--                    <circle id="Ellipse_28-3345" data-name="Ellipse 28354" cx="2.5" cy="2.5" r="2.5"-->
+<!--                            transform="translate(356 39)" fill="#ccc"/>-->
+<!--                  </g>-->
+<!--                </g>-->
+<!--              </g>-->
+<!--            </svg>-->
+<!--          </div>-->
+<!--        </div>-->
+      </div>
+      <div class="col text-center align-self-end">
+        <div class="casablanca-font text-purple font-size-title">
+          {{routeName}}
+        </div>
+      </div>
+      <div class="col-2 align-self-end">
+        <back-button></back-button>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="main">
+      <div style="padding-bottom: 30%;">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </main>
+
+<!--  <div *ngIf="showFilter" class="filter-menu text-light rounded-bottom-1" [ngClass]="{'show':showFilter}" (clickOutside)="clickOutside()">-->
+<!--    <div>-->
+<!--      <ul class="pt-3">-->
+<!--        <li class="pt-3 pb-1">-->
+<!--          <img src="assets/svg/edit.svg" alt="تماس با پشتیبانی">-->
+<!--          <small class="text-mute">-->
+<!--            ویرایش وام-->
+<!--          </small>-->
+<!--        </li>-->
+<!--        <li class="py-3 pr-1">-->
+<!--          <img src="assets/svg/logout.svg" alt="خروج">-->
+<!--          <small class="text-mute pr-1">-->
+<!--            انصراف از دریافت وام-->
+<!--          </small>-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--    </div>-->
+<!--  </div>-->
+</ng-container>

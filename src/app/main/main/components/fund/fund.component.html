@@ -1,0 +1,145 @@
+<ng-container>
+  <ul class="nav nav-tabs tab-fixed pr-0 border-bottom-0" id="myFundTab" role="tablist">
+    <li class="nav-item w-50 rounded-bottom-right-1">
+      <a class="nav-link pt-3 text-center" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
+         aria-controls="contact"
+         aria-selected="true">مخاطبین</a>
+    </li>
+    <li class="nav-item w-50 rounded-bottom-left-1">
+      <a class="nav-link pt-3 active text-center" id="fund-tab" data-toggle="tab" href="#fund" role="tab"
+         aria-controls="contact"
+         aria-selected="false">
+        دایره های من
+      </a>
+    </li>
+  </ul>
+  <div class="tab-content mt-5" id="myFundTabContent">
+    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+      <h6 class="text-info text-center">
+        به زودی ...
+      </h6>
+    </div>
+    <div class="tab-pane fade show active" id="fund" role="tabpanel" aria-labelledby="fund-tab">
+      <ng-container>
+        <main>
+          <a routerLink="/fund/voting">
+            <div class="pb-2 pt-3 border-bottom">
+              <div class="row text-mute">
+                <div class="col-2 px-1 text-center">
+                  <img src="assets/svg/fund.svg" alt="">
+                </div>
+                <div class="col px-0 align-self-center">
+                  رای گیری جدید
+                  <div class="text-truncate" *ngIf="allVoting.length!==0">
+                    دایره
+                    <small *ngFor="let item of allVoting.slice(0,2)">
+                       {{item.name}} ,
+                    </small>
+                    ...
+                  </div>
+                  <div class="text-truncate" *ngIf="allVoting.length==0">
+                      0
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+          <div class="px-2">
+            <h6 class="text-center text-info mt-4" *ngIf="fundList.length==0">
+              شما در هیچ دایره ایی عضو نیستید
+            </h6>
+            <a class="row bg-white p-2 mt-2 rounded-20 shadow-sm" (click)="autoLottery(item.fundId)"
+               *ngFor="let item of fundList">
+              <div class="align-self-center text-left">
+                <img *ngIf="item.imageUrl !== ''" [src]="item.imageUrl" class="img-fluid" [alt]="item.name">
+                <fund-picture *ngIf="item.imageUrl == ''" [inputName]="item.name"></fund-picture>
+              </div>
+              <div class="col">
+                  <span class="text-mute">
+                      {{item.name}}
+                  </span>
+                <div class="text-gray">
+                  <small>
+                    مدیر : {{item.adminName}}
+                  </small>
+                </div>
+              </div>
+              <div class="col-2 align-self-center text-left">
+                <img src="assets/svg/message.svg" [alt]="'چت'+item.name">
+              </div>
+            </a>
+          </div>
+          <div class="float-button">
+            <a class="btn bg-yellow rounded-pill shadow-xl" routerLink="/fund/new-fund">
+              <small>
+                <i class="fa fa-plus"></i>
+                دایره جدید
+              </small>
+            </a>
+          </div>
+        </main>
+      </ng-container>
+    </div>
+  </div>
+
+</ng-container>
+
+<!--lottery modal-->
+<div class="modal fade" id="adminLotteryModal" tabindex="-1" role="dialog"
+     aria-labelledby="adminLotteryModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog m-4 modal-dialog-centered" role="document">
+    <div class="modal-content rounded-20">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col text-center">
+            <img src="assets/svg/warning.svg" alt="">
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col text-center">
+            <h6 class="text-mute">
+              این دایره قرعه کشی نشده است. مایل به قرعه کشی هستید؟
+            </h6>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center border-top-0 text-center d-block">
+        <button type="button" class="btn btn-warning w-75 rounded-pill text-center" (click)="confirmLottery()">
+          بله
+        </button>
+        <div class="row">
+          <div class="col text-center">
+            <button type="button" class="btn" data-dismiss="modal">خیر</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--user modal-->
+<div class="modal fade" id="userLotteryModal" tabindex="-1" role="dialog" aria-labelledby="userLotteryModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog m-4 modal-dialog-centered" role="document">
+    <div class="modal-content rounded-20">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col text-center">
+            <img src="assets/svg/warning.svg" alt="">
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col text-center">
+            <h6 class="text-mute">
+              این دایره قرعه کشی نشده است . مدیر دایره باید قرعه کشی را انجام دهد.
+            </h6>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center border-top-0 text-center d-block">
+        <button type="button" class="btn btn-warning w-75 rounded-pill text-center" data-dismiss="modal">باشه</button>
+      </div>
+    </div>
+  </div>
+</div>

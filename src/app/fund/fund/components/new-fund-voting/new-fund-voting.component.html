@@ -1,0 +1,243 @@
+<ng-container *ngIf="fundDetail!==undefined">
+  <div class="bg-lightPurple rounded-20 p-3">
+    <div class="row">
+      <div class="col-2">
+        <img *ngIf="fundDetail.imageUrl!==''" [src]="fundDetail.imageUrl" [alt]="fundDetail.name">
+        <fund-picture *ngIf="fundDetail.imageUrl==''" [inputName]="fundDetail.name"></fund-picture>
+      </div>
+      <div class="col text-mute align-self-center">
+        <span>
+           دایره {{fundDetail.name}}
+        </span>
+        <div>
+          <small>
+            مدیر : {{fundDetail.adminName}}
+          </small>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2 text-mute">
+      <div class="col">
+        <label>
+          حق عضویت :
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h6 class="text-left text-darkBlue">
+          {{fundDetail.minDepositAmount  | amount }}
+          تا {{fundDetail.maxDepositAmount  | amount}}
+        </h6>
+      </div>
+    </div>
+    <div class="row text-mute">
+      <div class="col">
+        <label>
+          مبلغ حق عضویت :
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h6 class="text-left text-darkBlue">
+          {{fundDetail.defaultDepositAmount  | amount }}
+        </h6>
+      </div>
+    </div>
+    <div class="row text-mute">
+      <div class="col">
+        <label>
+          ظرفیت وام دهی :
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h6 class="text-left text-darkBlue">
+          {{fundDetail.minLoanAmount | amount }}
+          تا {{fundDetail.maxLoanAmount  | amount }}
+        </h6>
+      </div>
+    </div>
+    <div class="row text-mute">
+      <div class="col">
+        <label>
+          مدت اقساط :
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h6 class="text-left text-darkBlue">
+          از {{fundDetail.minLoanInstallment | month}} تا {{fundDetail.maxLoanInstallment | month}}
+        </h6>
+      </div>
+    </div>
+  </div>
+  <div class="bg-mutePurple rounded-20 py-3 mt-3">
+    <div class="row mx-0">
+      <div class="col text-center">
+        <a [routerLink]="['/fund/members-vote-list',fundDetail.fundId]" class="text-dark">
+          لیست رای اعضا
+        </a>
+      </div>
+      <div class="col text-center">
+        <a routerLink="/fund/terms" class="text-dark">
+          قوانین و مقررات
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center mt-3 mx-0">
+    <div class="col">
+      <h5 class="text-mute">
+        مهلت رای گیری :
+      </h5>
+    </div>
+    <div class="col text-left">
+      <h6 class="text-darkBlue" style="direction: ltr;">
+        {{fundDetail.voteExpireDate}}
+      </h6>
+    </div>
+  </div>
+  <div class="row justify-content-center mt-3 mx-0">
+    <div class="col">
+      <p class="text-mute">
+        دو درصد کارمزد برای سیستم به وام ها تعلق میگیرد .
+      </p>
+      <p class="text-mute">
+        {{fundDetail.adminPercent | percentWord}} کارمزد به مدیر تعلق می گیرد .
+      </p>
+      <p class="text-mute">
+        {{fundDetail.socialFundPriorityType | socialFundPriority}}
+      </p>
+    </div>
+  </div>
+  <div class="row mb-3 mx-0">
+    <div class="col text-center">
+      <button *ngIf="fundDetail.isAdmin" type="button" class="btn text-danger" (click)="closeVotingNewFund()">
+        اتمام رای گیری
+      </button>
+      <button *ngIf="!fundDetail.isAdmin&&!alreadyDisagreed&&!alreadyAgreed" type="button" class="btn text-danger" (click)="voteNewFund(false)">
+        مخالفت
+      </button>
+    </div>
+  </div>
+  <div class="row mb-3 mx-0" *ngIf="alreadyDisagreed">
+    <div class="col text-center">
+      <button type="button" class="btn text-danger">
+        شما با تشکیل این دایره مخالفت کرده اید.
+      </button>
+    </div>
+  </div>
+  <div class="row mb-3 mx-0" *ngIf="alreadyAgreed">
+    <div class="col text-center">
+      <button type="button" class="btn text-success">
+        شما با تشکیل این دایره موافقت کرده اید.
+      </button>
+    </div>
+  </div>
+  <div class="row mx-0" *ngIf="!fundDetail.isAdmin&&!alreadyDisagreed&&!alreadyAgreed">
+    <div class="col text-center">
+      <button type="button" (click)="voteNewFund(true)"
+              class="btn btn-success text-white py-2 mb-4 w-75 rounded-pill">
+        موافقت و رزرو حق عضویت
+      </button>
+    </div>
+  </div>
+</ng-container>
+
+
+
+<div class="modal fade" id="voteNewFundModal" tabindex="-1" role="dialog" aria-labelledby="voteNewFundModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog m-4 modal-dialog-centered" role="document">
+    <div class="modal-content rounded-20">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col text-center">
+            <img src="assets/svg/warning.svg" alt="">
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col text-center">
+            <h6 class="text-mute">
+              آیا از انجام این کار اطمینان دارید؟
+            </h6>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center border-top-0 text-center d-block">
+        <button type="button" class="btn btn-warning w-75 rounded-pill text-center" (click)="confirmVoteNewFund()">بله</button>
+        <div class="row">
+          <div class="col text-center">
+            <button type="button" class="btn" data-dismiss="modal">خیر</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="warningModal" tabindex="-1" role="dialog" aria-labelledby="warningModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog m-4 modal-dialog-centered" role="document">
+    <div class="modal-content rounded-20">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col text-center">
+            <img src="assets/svg/warning.svg" alt="">
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col text-center">
+            <h6 class="text-mute">
+          حق عضویت از مبلغ کیف پول شما بیشتر است . شارژ کیف پول ؟
+            </h6>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center border-top-0 text-center d-block">
+        <button type="button" class="btn btn-warning w-75 rounded-pill text-center" (click)="charge()">بله</button>
+        <div class="row">
+          <div class="col text-center">
+            <button type="button" class="btn" data-dismiss="modal">خیر</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="closeVotingNewFundModal" tabindex="-1" role="dialog" aria-labelledby="closeVotingNewFundModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog m-4 modal-dialog-centered" role="document">
+    <div class="modal-content rounded-20">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col text-center">
+            <img src="assets/svg/warning.svg" alt="">
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col text-center">
+            <h6 class="text-mute">
+              آیا از انجام این کار اطمینان دارید؟
+            </h6>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center border-top-0 text-center d-block">
+        <button type="button" class="btn btn-warning w-75 rounded-pill text-center" (click)="confirmCloseVotingNewFund()">بله</button>
+        <div class="row">
+          <div class="col text-center">
+            <button type="button" class="btn" data-dismiss="modal">خیر</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

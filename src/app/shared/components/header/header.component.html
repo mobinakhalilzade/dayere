@@ -1,0 +1,224 @@
+<ng-container>
+  <div class="row mx-0 bg-white rounded-bottom-1 header z-index-9">
+    <div *ngIf="profile" (click)="showFilter=!showFilter" data-toggle="collapse" data-target="#collapseExample"
+         aria-expanded="false" aria-controls="collapseExample" class="col-2 text-right">
+      <div *ngIf="!showFilter">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="45"
+             height="45" viewBox="0 0 45 45">
+          <defs>
+            <clipPath id="clip-path6556">
+              <rect width="5" height="21" fill="none"/>
+            </clipPath>
+          </defs>
+          <g id="Group_32566" data-name="Group 32566" transform="translate(-324 -27)">
+            <circle id="Ellipse_2756" data-name="Ellipse 2657" cx="22.5" cy="22.5" r="22.5"
+                    transform="translate(324 27)" fill="#fff"/>
+            <g id="Repeat_Grid_3256" data-name="Repeat Grid 3265" transform="translate(344 39)"
+               clip-path="url(#clip-path)">
+              <g transform="translate(-356 -39)">
+                <circle id="Ellipse_2856" data-name="Ellipse 2865" cx="2.5" cy="2.5" r="2.5"
+                        transform="translate(356 39)" fill="#3a2270"/>
+              </g>
+              <g transform="translate(-356 -32)">
+                <circle id="Ellipse_28-256" data-name="Ellipse 2865" cx="2.5" cy="2.5" r="2.5"
+                        transform="translate(356 39)" fill="#3a2270"/>
+              </g>
+              <g transform="translate(-356 -25)">
+                <circle id="Ellipse_28-356" data-name="Ellipse 2865" cx="2.5" cy="2.5" r="2.5"
+                        transform="translate(356 39)" fill="#3a2270"/>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div *ngIf="showFilter">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="45"
+             height="45" viewBox="0 0 45 45">
+          <defs>
+            <clipPath id="clip-path3553">
+              <rect width="5" height="21" fill="none"/>
+            </clipPath>
+          </defs>
+          <g id="Group_326453" data-name="Group 326453" transform="translate(-324 -27)">
+            <circle id="Ellipse_24537" data-name="Ellipse 27345" cx="22.5" cy="22.5" r="22.5"
+                    transform="translate(324 27)" fill="#3a2270"/>
+            <g id="Repeat_Grid_32354" data-name="Repeat Grid 32354" transform="translate(344 39)"
+               clip-path="url(#clip-path)">
+              <g transform="translate(-356 -39)">
+                <circle id="Ellipse_2854" data-name="Ellipse 2835" cx="2.5" cy="2.5" r="2.5"
+                        transform="translate(356 39)" fill="#ccc"/>
+              </g>
+              <g transform="translate(-356 -32)">
+                <circle id="Ellipse_28-235" data-name="Ellipse 28354" cx="2.5" cy="2.5" r="2.5"
+                        transform="translate(356 39)" fill="#ccc"/>
+              </g>
+              <g transform="translate(-356 -25)">
+                <circle id="Ellipse_28-3345" data-name="Ellipse 28354" cx="2.5" cy="2.5" r="2.5"
+                        transform="translate(356 39)" fill="#ccc"/>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div *ngIf="routeHasFilter" (click)="showFilter=!showFilter" data-toggle="collapse"
+         data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"
+         class="col-2 text-right">
+      <div *ngIf="!showFilter">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="45"
+             height="45" viewBox="0 0 45 45">
+          <defs>
+            <clipPath id="clip-path7">
+              <circle id="Ellipse_26447" data-name="Ellipse 26" cx="17.5" cy="17.5" r="17.5"
+                      transform="translate(332 33)" fill="#6d41ae"/>
+            </clipPath>
+          </defs>
+          <g id="Group_30449" data-name="Group 30449" transform="translate(-324 -27)">
+            <circle id="Ellipse_27447" data-name="Ellipse 27" cx="22.5" cy="22.5" r="22.5"
+                    transform="translate(324 27)" fill="#fff"/>
+            <g id="Mask_Group_6447" data-name="Mask Group 644" transform="translate(-3 -1)"
+               clip-path="url(#clip-path)">
+              <g id="funnel" transform="translate(332 33)">
+                <g id="Group_260744" data-name="Group 260744">
+                  <path id="Path_39744" data-name="Path 39"
+                        d="M26.164,4.37c.007-.021-.007-.042-.007-.062V.694A.68.68,0,0,0,25.492,0H3.187a.674.674,0,0,0-.68.673V4.308c0,.021-.014.042-.007.062s-.007.021,0,.028v.035a.061.061,0,0,0,.007.035.052.052,0,0,1,.007.028.3.3,0,0,1,.007.035c0,.007.007.021.007.028s.007.021.014.035.007.021.014.028.007.021.014.028a.052.052,0,0,1,.014.028c0,.007.014.021.014.028s.014.021.021.028.014.014.014.021a.035.035,0,0,1,.021.007l8.49,9.781V26.36a.67.67,0,0,0,.389.624.719.719,0,0,0,.3.069.7.7,0,0,0,.439-.153l5-3.975a.669.669,0,0,0,.248-.541V14.539L26,4.759a.022.022,0,0,0,.014-.007l.021-.021c.007-.007.014-.021.021-.028s.014-.021.021-.028a190.424,190.424,0,0,0,.028-.055c.007-.007.007-.021.014-.028s.007-.021.014-.035a.041.041,0,0,0,.007-.028.061.061,0,0,0,.007-.035c0-.014.007-.021.007-.028a.3.3,0,0,0,.007-.035.3.3,0,0,1,.007-.035C26.172,4.391,26.157,4.377,26.164,4.37Zm-9.878,9.462a.715.715,0,0,0-.184.451v7.769L12.562,24.9V14.283a.715.715,0,0,0-.184-.451L4.717,4.994H23.948ZM24.741,3.607H3.924V1.387H24.741Z"
+                        transform="translate(3 5.947)" fill="#3a2270"/>
+                </g>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div *ngIf="showFilter">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="45"
+             height="45" viewBox="0 0 45 45">
+          <defs>
+            <clipPath id="clip-path757">
+              <circle id="Ellipse_26757" data-name="Ellipse 2657" cx="17.5" cy="17.5" r="17.5"
+                      transform="translate(332 33)" fill="#6d41ae"/>
+            </clipPath>
+          </defs>
+          <g id="Group_30957" data-name="Group 30957" transform="translate(-324 -27)">
+            <circle id="Ellipse_27757" data-name="Ellipse 2757" cx="22.5" cy="22.5" r="22.5"
+                    transform="translate(324 27)" fill="#3a2270"/>
+            <g id="Mask_Group_6757" data-name="Mask Group 657" transform="translate(-3 -1)"
+               clip-path="url(#clip-path)">
+              <g id="funnel57" transform="translate(332 33)">
+                <g id="Group_260757" data-name="Group 260757">
+                  <path id="Path_39757" data-name="Path 3957"
+                        d="M26.164,4.37c.007-.021-.007-.042-.007-.062V.694A.68.68,0,0,0,25.492,0H3.187a.674.674,0,0,0-.68.673V4.308c0,.021-.014.042-.007.062s-.007.021,0,.028v.035a.061.061,0,0,0,.007.035.052.052,0,0,1,.007.028.3.3,0,0,1,.007.035c0,.007.007.021.007.028s.007.021.014.035.007.021.014.028.007.021.014.028a.052.052,0,0,1,.014.028c0,.007.014.021.014.028s.014.021.021.028.014.014.014.021a.035.035,0,0,1,.021.007l8.49,9.781V26.36a.67.67,0,0,0,.389.624.719.719,0,0,0,.3.069.7.7,0,0,0,.439-.153l5-3.975a.669.669,0,0,0,.248-.541V14.539L26,4.759a.022.022,0,0,0,.014-.007l.021-.021c.007-.007.014-.021.021-.028s.014-.021.021-.028a190.424,190.424,0,0,0,.028-.055c.007-.007.007-.021.014-.028s.007-.021.014-.035a.041.041,0,0,0,.007-.028.061.061,0,0,0,.007-.035c0-.014.007-.021.007-.028a.3.3,0,0,0,.007-.035.3.3,0,0,1,.007-.035C26.172,4.391,26.157,4.377,26.164,4.37Zm-9.878,9.462a.715.715,0,0,0-.184.451v7.769L12.562,24.9V14.283a.715.715,0,0,0-.184-.451L4.717,4.994H23.948ZM24.741,3.607H3.924V1.387H24.741Z"
+                        transform="translate(3 5.947)" fill="#ccc"/>
+                </g>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="col">
+      <img src="../../../../assets/icons/logo-header.png" class="img-fluid" alt="دایره">
+    </div>
+  </div>
+  <div *ngIf="showFilter" class="filter-menu text-light rounded-bottom-1" [ngClass]="{'show':showFilter}" (clickOutside)="clickOutside()">
+    <div *ngIf="id == 1">
+      <ul class="pt-3">
+<!--        <li class="pt-3 pb-1">-->
+<!--          <img src="assets/svg/edit.svg" alt="تماس با پشتیبانی">-->
+<!--          <small class="text-mute">-->
+<!--            تکمیل/ویرایش اطلاعات-->
+<!--          </small>-->
+<!--        </li>-->
+        <li class="py-3 pr-1">
+          <a href="tel:02172983000">
+            <img src="assets/svg/support.svg" alt="تماس با پشتیبانی">
+            <small class="text-mute pr-1">
+              تماس با پشتیبانی
+            </small>
+          </a>
+        </li>
+        <li class="py-2 pr-1" (click)="logout()">
+          <img src="assets/svg/logout.svg" alt="خروج">
+          <small class="text-mute pr-1">
+            خروج از حساب
+          </small>
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="id == 2">
+      <form class="pt-4" [formGroup]="transactionFiltersForm"
+            (ngSubmit)="applyTransactionFilters(transactionFiltersForm)">
+        <div class="row justify-content-center mt-4 w-100 mx-0">
+          <div class="col-3 text-left">
+            <button class="btn bg-midPurple rounded-20 px-4" type="button"
+                    (click)="transactionTypes(160101)"
+                    [ngClass]="{'bg-violet , text-light':transactionType.deposit}">
+              واریز
+            </button>
+          </div>
+          <div class="col-3">
+            <button class="btn bg-midPurple rounded-20" type="button"
+                    (click)="transactionTypes(160102)"
+                    [ngClass]="{'bg-violet , text-light':transactionType.withdraw}">
+              برداشت
+            </button>
+          </div>
+          <div class="col-3">
+            <button class="btn bg-midPurple rounded-20 px-4" type="button" (click)="transactionTypes(0)"
+                    [ngClass]="{'bg-violet , text-light':transactionType.all}">
+              همه
+            </button>
+          </div>
+        </div>
+        <div class="row mt-4 mx-1">
+          <div class="col-6">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control bg-transparent rounded-20" placeholder="از تاریخ"  mask="0000/00/00"
+                     aria-label="fromDate" aria-describedby="fromDate" formControlName="fromDate">
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control bg-transparent rounded-20" placeholder="تا تاریخ"  mask="0000/00/00"
+                     aria-label="toDate" aria-describedby="toDate" formControlName="toDate">
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-4 mx-1">
+          <div class="col-6">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control bg-transparent rounded-20" placeholder="از مبلغ (ریال)"
+                     aria-label="fromAmount" aria-describedby="fromAmount" formControlName="fromAmount">
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control bg-transparent rounded-20" placeholder="تا مبلغ (ریال)"
+                     aria-label="toAmount" aria-describedby="toAmount" formControlName="toAmount">
+            </div>
+          </div>
+        </div>
+        <div class="row my-3 mx-1">
+          <div class="col text-center">
+            <button type="submit" class="btn text-yellow btn-hover-yellow">تایید</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="id == 4">
+      <ul class="pt-3">
+        <mat-radio-group
+          aria-labelledby="example-radio-group-label"
+          class="example-radio-group">
+          <li class="pt-3 pb-2" *ngFor="let item of loan">
+            <mat-radio-button class="example-radio-button" [checked]="item.checked" [value]="item.value" (change)="loanFilter($event)">
+              <small class="text-mute pr-2">
+                {{item.title}}
+              </small>
+            </mat-radio-button>
+          </li>
+        </mat-radio-group>
+      </ul>
+    </div>
+  </div>
+</ng-container>

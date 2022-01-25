@@ -1,0 +1,87 @@
+<ng-container *ngIf="ongoingLoans">
+  <div class="bg-lightPurple rounded-20 p-3">
+    <div class="row">
+      <div class="col-2">
+        <img *ngIf="ongoingLoans.memberImageUrl!==''" [src]="ongoingLoans.memberImageUrl" [alt]="ongoingLoans.memberName" class="img-fluid">
+        <img *ngIf="ongoingLoans.memberImageUrl==''" src="assets/images/profile-photo.png" [alt]="ongoingLoans.memberName" class="img-fluid">
+      </div>
+      <div class="col text-mute align-self-center pr-0">
+        <h5 class="mb-0">
+          {{ongoingLoans.memberName}} {{ongoingLoans.memberSurname}}
+        </h5>
+      </div>
+    </div>
+    <div class="row mt-2 text-mute">
+      <div class="col">
+        <label>
+          وام درخواستی از دایره شما :
+        </label>
+      </div>
+    </div>
+    <div class="row text-mute">
+      <div class="col">
+        <h6 class="text-left text-darkBlue">
+         {{ongoingLoans.amount | amount}}
+        </h6>
+      </div>
+    </div>
+    <div class="row text-mute">
+      <div class="col">
+        <label>
+          اقساط پرداخت شده :
+        </label>
+      </div>
+    </div>
+    <div class="row text-mute">
+      <div class="col">
+        <h6 class="text-left text-darkBlue">
+          {{ongoingLoans.installmentsCount}} / {{ongoingLoans.installmentsRemainCount}}
+        </h6>
+      </div>
+    </div>
+    <div class="row text-mute">
+      <div class="col">
+        <label>
+          مبلغ باقیمانده :
+        </label>
+      </div>
+    </div>
+    <div class="row text-mute">
+      <div class="col">
+        <h6 class="text-left text-mute">
+          {{ongoingLoans.remainAmount | amount}}
+        </h6>
+      </div>
+    </div>
+  </div>
+  <a class="row bg-white p-2 mt-3 mx-0 rounded-20 shadow-sm" *ngFor="let item of ongoingLoans.installments">
+    <div class="col">
+       <span class="text-mute">
+      قسط {{item.installmentNumber | persianNumber}}
+       </span>
+      <div class="text-gray">
+        <small>
+          مبلغ :  {{item.amount | amount}}
+        </small>
+      </div>
+    </div>
+    <div class="col align-self-center text-left text-dark">
+      <div class="text-mute">
+        <small>
+          تاریخ سررسید : {{item.dueDate}}
+        </small>
+      </div>
+      <div class="text-mute"
+           [ngClass]="{'text-danger' :item.installmentState==190304 , 'text-warning' :item.installmentState==190303}">
+        <small>
+          {{item.installmentState |installmentState}}
+        </small>
+      </div>
+      <div *ngIf="item.installmentState==190301" class="text-success">
+        <small>
+          تاریخ پرداخت : {{item.paymentDate}}
+        </small>
+      </div>
+    </div>
+  </a>
+</ng-container>

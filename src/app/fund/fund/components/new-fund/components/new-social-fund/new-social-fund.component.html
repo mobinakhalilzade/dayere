@@ -1,0 +1,490 @@
+<ng-container>
+  <mat-horizontal-stepper [linear]="isLinear" #stepper class="stepper dir-ltr">
+    <ng-template matStepperIcon="edit">
+      <mat-icon>done</mat-icon>
+    </ng-template>
+    <form [formGroup]="newFundVoteForm" (ngSubmit)="newFundVote(newFundVoteForm)">
+      <mat-step>
+        <div class="row">
+          <div class="col">
+            <small class="text-mute">
+              .نام دایره خود را انتخاب کنید
+            </small>
+            <div class="row mt-3">
+              <div class="col">
+                <text-box label="نام دایره" formControlName="name"></text-box>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col">
+            <small class="text-mute">
+              .یک حساب برای تراکنش های دایره انتخاب کنید
+            </small>
+            <div class="row">
+              <div class="col">
+                <mat-form-field appearance="fill" class="w-100">
+                  <mat-label class="float-right">
+                    انتخاب حساب
+                  </mat-label>
+                  <mat-select class="mb-3" formControlName="accountId">
+                    <mat-option *ngFor="let item of bankAccList" [value]="item.accountId">
+                      <div class="row">
+                        <div class="col pr-0">
+                          <small>
+                            {{item.shebaNumber}}
+                          </small>
+                        </div>
+                        <div class="col-2 pl-0">
+                          <img [src]="'https://dayere.co/Common/Images/BankIcons/bank_logo_'+item.bankCode+'.png'"
+                               class="img-fluid-logo-sm" [alt]="item.bankName">
+                        </div>
+                      </div>
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <small class="text-mute">
+              .مشخص کنید اعضای دعوت شده به دایره تا چند روز می توانند موافقت یا عدم موافقت خود با شرکت در دایره را
+              اعلام کنند
+            </small>
+            <div class="row mt-3">
+              <div class="col">
+                <text-box label="مدت زمان رای گیری" [(ngModel)]="countDaysVoting" type="number"
+                          (text)="checkCountDaysVoting($event)"
+                          formControlName="countDaysVoting"></text-box>
+                <mat-error *ngIf="isInvalidCountDaysVoting" class="mb-2">
+                  <small class="mr-2">
+                    {{invalidMessage}}
+                  </small>
+                </mat-error>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-4" *ngFor="let item of votingTime">
+            <button type="button" class="btn bg-lightPurple rounded-20 w-100 dir-rtl"
+                    [ngClass]="{'bg-purple , text-light' : item.active}"
+                    (click)="setVote(item.value);">
+              <small>
+                {{item.day}}
+              </small>
+            </button>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col">
+            <small class="text-mute">
+              .مدیر می تواند جهت پوشش هزینه های نگهداری صندوق کارمزدی از وام های اعطایی را دریافت نماید
+            </small>
+            <div class="row mt-3">
+              <div class="col">
+                <text-box label="کارمزد مدیر" [disabled]="disabled" [(ngModel)]="adminPercent"
+                          formControlName="adminPercent"></text-box>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2" *ngIf="infoNewFund">
+          <div class="col-4" *ngFor="let item of infoNewFund.adminInterestSuggestions">
+            <button type="button" class="btn bg-lightPurple rounded-20 w-100 dir-rtl"
+                    [ngClass]="{'bg-purple , text-light' : item == adminPercent}"
+                    (click)="adminPercent=item">
+              <small>
+                {{item | percentWord}}
+              </small>
+            </button>
+          </div>
+        </div>
+        <div class="btn-fix">
+          <div class="row">
+            <div class="col">
+              <button type="button" matStepperPrevious
+                      class="btn btn-light text-yellow rounded-pill">
+                مرحله قبل
+              </button>
+            </div>
+            <div class="col-8 text-right">
+              <button type="button" (click)="step1(newFundVoteForm,stepper)" [disabled]="isInvalidCountDaysVoting"
+                      class="btn bg-yellow text-dark w-100 rounded-pill">
+                مرحله بعد
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-step>
+      <mat-step>
+        <div class="row">
+          <div class="col">
+            <p class="text-mute mb-4">
+              هر فرد در زمان ورود به صندوق مبلغی را جهت حق عضویت به حساب صندوق واریز می کند
+              شما با مبالغ صندوق وام خواهید داد.
+            </p>
+            <div class="row mt-3">
+              <div class="col">
+                <text-box label="مبلغ پیشنهادی حق عضویت" [(ngModel)]="adminRequestContribution" type="number"
+                          (ngModelChange)="checkAdminRequestContribution($event)"
+                          formControlName="adminRequestContribution"
+                          (text)="checkAdminRequestContribution($event)"></text-box>
+                <mat-error *ngIf="isInvalidAdminRequestContribution" class="mb-2">
+                  <small class="mr-2">
+                    {{invalidMessage}}
+                  </small>
+                </mat-error>
+              </div>
+            </div>
+            <div class="row" *ngIf="infoNewFund">
+              <div class="col-4" *ngFor="let item of infoNewFund.depositAmountSuggestions">
+                <button type="button" class="btn bg-lightPurple rounded-20"
+                        [ngClass]="{'bg-purple , text-light' : item == adminRequestContribution}"
+                        (click)="adminRequestContribution=item;minContribution=item;maxContribution=item">
+                  <small>
+                    {{item | amountSeparator}}
+                  </small>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col">
+            <p class="text-mute mb-4">
+              درصورتی که میخواهید اعضا حق عضویت های متفاوتی داشته باشند کف و سقف حق عضویت را تعیین کنید
+            </p>
+            <div class="row mt-3">
+              <div class="col">
+                <text-box label="کف حق عضویت" [(ngModel)]="minContribution" type="number"
+                          (ngModelChange)="checkMinContribution($event)" (text)="checkMinContribution($event)"
+                          formControlName="minContribution"></text-box>
+                <mat-error *ngIf="isInvalidMinContribution" class="mb-2">
+                  <small class="mr-2">
+                    {{invalidMessage}}
+                  </small>
+                </mat-error>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col">
+                <text-box label="سقف حق عضویت" [(ngModel)]="maxContribution" type="number"
+                          (ngModelChange)="checkMaxContribution($event)" (text)="checkMaxContribution($event)"
+                          formControlName="maxContribution"></text-box>
+                <mat-error *ngIf="isInvalidMaxContribution" class="mb-2">
+                  <small class="mr-2">
+                    {{invalidMessage}}
+                  </small>
+                </mat-error>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="btn-fix">
+          <div class="row">
+            <div class="col">
+              <button type="button" matStepperPrevious
+                      class="btn btn-light text-yellow rounded-pill">
+                مرحله قبل
+              </button>
+            </div>
+            <div class="col-8 text-right">
+              <button type="button" (click)="step2(newFundVoteForm,stepper)"
+                      [disabled]="isInvalidAdminRequestContribution||isInvalidMinContribution||isInvalidMaxContribution"
+                      class="btn bg-yellow text-dark w-100 rounded-pill">
+                مرحله بعد
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-step>
+      <mat-step>
+        <div class="row">
+          <div class="col">
+            <p class="text-mute mb-4">
+              هر فرد میتواند با توجه به حق عضویت پس از قرعه کشی تا 4 برابر حق عضویت خود وام دریافت کند
+            </p>
+            <div class="row mt-3">
+              <div class="col">
+                <text-box label="کف مبلغ وام دهی" [(ngModel)]="minLoanAmount" (text)="checkMinLoanAmount($event)"
+                          type="number" formControlName="minLoanAmount"></text-box>
+                <mat-error *ngIf="isInvalidMinLoanAmount" class="mb-2">
+                  <small class="mr-2">
+                    {{invalidMessage}}
+                  </small>
+                </mat-error>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col">
+                <text-box label="سقف مبلغ وام دهی" [(ngModel)]="maxLoanAmount" (text)="checkMaxLoanAmount($event)"
+                          type="number" formControlName="maxLoanAmount"></text-box>
+                <mat-error *ngIf="isInvalidMaxLoanAmount" class="mb-2">
+                  <small class="mr-2">
+                    {{invalidMessage}}
+                  </small>
+                </mat-error>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col text-left">
+            <button class="btn bg-lightYellow text-darkYellow rounded-20 py-0" (click)="setDefaultAmounts()">
+              <small>
+                مبالغ پیشفرض
+              </small>
+            </button>
+          </div>
+        </div>
+        <div class="btn-fix">
+          <div class="row">
+            <div class="col">
+              <button type="button" matStepperPrevious
+                      class="btn btn-light text-yellow rounded-pill">
+                مرحله قبل
+              </button>
+            </div>
+            <div class="col-8 text-right">
+              <button type="button" (click)="step3(newFundVoteForm,stepper)"
+                      [disabled]="isInvalidMinLoanAmount||isInvalidMaxLoanAmount"
+                      class="btn bg-yellow text-dark w-100 rounded-pill">
+                مرحله بعد
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-step>
+      <mat-step>
+        <div class="row mb-3">
+          <div class="col">
+            <p class="text-mute mb-4">
+              اقساط وام رابطه مستقیمی به تعداد اعضایی که درصندوق هستند دارد و هر چه تعداد اعضا بیشتر باشد امکان
+              پرداخت بلند مدت تری وجود دارد
+            </p>
+            <div class="row mt-3">
+              <div class="col">
+                <text-box label="کف تعداد اقساط" [(ngModel)]="minInstallment" type="number"
+                          (text)="checkMinInstallment($event)"
+                          formControlName="minInstallment"></text-box>
+                <mat-error *ngIf="isInvalidMinInstallment" class="mb-2">
+                  <small class="mr-2">
+                    {{invalidMessage}}
+                  </small>
+                </mat-error>
+              </div>
+            </div>
+            <div class="row mb-4" *ngIf="infoNewFund">
+              <div class="col-4" *ngFor="let item of infoNewFund.installmentCountSuggestions.slice(0,3);">
+                <button type="button" class="btn bg-lightPurple w-100 rounded-20 dir-rtl"
+                        [ngClass]="{'bg-purple , text-light' : item == minInstallment}"
+                        (click)="minInstallment=item">
+                  <small>
+                    {{item | month}}
+                  </small>
+                </button>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col">
+                <text-box label="سقف تعداد اقساط" [(ngModel)]="maxInstallment" type="number"
+                          (text)="checkMaxInstallment($event)"
+                          formControlName="maxInstallment"></text-box>
+                <mat-error *ngIf="isInvalidMaxInstallment" class="mb-2">
+                  <small class="mr-2">
+                    {{invalidMessage}}
+                  </small>
+                </mat-error>
+              </div>
+            </div>
+            <div class="row" *ngIf="infoNewFund">
+              <div class="col-4" *ngFor="let item of infoNewFund.installmentCountSuggestions.slice(3,7)">
+                <button type="button" class="btn bg-lightPurple w-100 rounded-20 dir-rtl"
+                        [ngClass]="{'bg-purple , text-light' : item == maxInstallment}"
+                        (click)="maxInstallment=item">
+                  <small>
+                    {{item | month}}
+                  </small>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="btn-fix">
+          <div class="row">
+            <div class="col">
+              <button type="button" matStepperPrevious
+                      class="btn btn-light text-yellow rounded-pill">
+                مرحله قبل
+              </button>
+            </div>
+            <div class="col-8 text-right">
+              <button type="button" (click)="step4(newFundVoteForm,stepper)"
+                      [disabled]="isInvalidMinInstallment||isInvalidMaxInstallment"
+                      class="btn bg-yellow text-dark w-100 rounded-pill">
+                مرحله بعد
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-step>
+      <mat-step>
+        <div class="btn-fix">
+          <div class="row">
+            <div class="col">
+              <button type="button" matStepperPrevious
+                      class="btn btn-light text-yellow rounded-pill">
+                مرحله قبل
+              </button>
+            </div>
+            <div class="col-8 text-right">
+              <button type="button" matStepperNext (click)="step5(newFundVoteForm)"
+                      class="btn bg-yellow text-dark w-100 rounded-pill">
+                مرحله بعد
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-step>
+      <mat-step>
+        <main *ngIf="completeNewFundForm">
+          <div class="row">
+            <div class="col text-muted align-self-end">
+              <h5 class="font-weight-bold">
+                {{newFundVoteForm.value.name}}
+              </h5>
+              <!--                  <div class="row">-->
+              <!--                    <div class="col">-->
+              <!--                      <button class="btn btn-sm bg-lightYellow text-darkYellow rounded-pill mt-1 px-3">-->
+              <!--                        <small>-->
+              <!--                          آپلود تصویر-->
+              <!--                        </small>-->
+              <!--                      </button>-->
+              <!--                    </div>-->
+              <!--                  </div>-->
+            </div>
+            <div class="col-3 text-center">
+              <img src="../../../../../../../assets/images/profile-photo.png" class="img-fluid" alt="">
+            </div>
+          </div>
+          <div class="text-muted mt-3">
+            <div class="row m-2">
+              <div class="col">
+                <label>
+                  حق عضویت
+                </label>
+                <h6 class="text-left">
+                  از {{newFundVoteForm.value.minContribution | amount}}
+                  تا {{newFundVoteForm.value.maxContribution | amount}}
+                </h6>
+              </div>
+            </div>
+            <div class="row m-2">
+              <div class="col">
+                <label>
+                  مبلغ پیشنهادی حق عضویت
+                </label>
+                <h6 class="text-left">
+                  {{newFundVoteForm.value.adminRequestContribution | amount}}
+                </h6>
+              </div>
+            </div>
+            <div class="row m-2">
+              <div class="col">
+                <label>
+                  ظرفیت وام دهی
+                </label>
+                <h6 class="text-left">
+                  از {{newFundVoteForm.value.minLoanAmount | amount}}
+                  تا {{newFundVoteForm.value.maxLoanAmount | amount}}
+                </h6>
+              </div>
+            </div>
+            <div class="row m-2">
+              <div class="col">
+                <label>
+                  مدت اقساط
+                </label>
+                <h6 class="text-left">
+                  از {{newFundVoteForm.value.minInstallment | month}}
+                  تا {{newFundVoteForm.value.maxInstallment | month}}
+                </h6>
+              </div>
+            </div>
+            <div class="row m-2">
+              <div class="col">
+                <label>
+                  مهلت رای گیری
+                </label>
+                <h6 class="text-left">
+                  {{newFundVoteForm.value.countDaysVoting | day}}
+                </h6>
+              </div>
+            </div>
+            <div class="row m-2">
+              <div class="col">
+                <p class="text-mute">
+                  دو درصد کارمزد برای سیستم به وام ها تعلق می گیرد .
+                  {{newFundVoteForm.value.adminPercent | percentWord}} کارمزد به مدیر تعلق می گیرد .
+                  الویت بندی ها به صورت رندوم و با قرعه کشی مشخص می شود.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="btn-fix">
+            <div class="row">
+              <div class="col">
+                <button type="submit" matStepperPrevious
+                        class="btn btn-light text-yellow  rounded-pill">
+                  مرحله قبل
+                </button>
+              </div>
+              <div class="col-8 text-right">
+                <button type="button" matStepperNext (click)="newFundVote(newFundVoteForm.value)"
+                        class="btn bg-yellow text-dark w-100 rounded-pill">
+                  پرداخت حق عضویت و ارسال دعوت نامه
+                </button>
+              </div>
+            </div>
+          </div>
+        </main>
+      </mat-step>
+    </form>
+  </mat-horizontal-stepper>
+</ng-container>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog m-4 modal-dialog-centered" role="document">
+    <div class="modal-content rounded-20">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col text-center">
+            <img src="../../../../../../../assets/svg/warning.svg" alt="">
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col text-center">
+            <h6 class="text-mute">
+              اعتبار کیف پول شما کم است. با افزایش اعتبار موافقید ؟
+            </h6>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center border-top-0 text-center d-block">
+        <button type="button" class="btn btn-warning w-75 rounded-pill text-center" (click)="confirmCharge()">بله
+        </button>
+        <div class="row">
+          <div class="col text-center">
+            <button type="button" class="btn" data-dismiss="modal">خیر</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

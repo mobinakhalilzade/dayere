@@ -1,0 +1,208 @@
+<ng-container *ngIf="fundDetail">
+  <div class="bg-lightPurple rounded-20 p-3">
+    <div class="row">
+      <div class="col-2">
+        <img *ngIf="fundDetail.imageUrl!==''" [src]="fundDetail.imageUrl" [alt]="fundDetail.name">
+        <fund-picture *ngIf="fundDetail.imageUrl==''" [inputName]="fundDetail.name"></fund-picture>
+      </div>
+      <div class="col text-mute align-self-center">
+              <span class="h5">
+                 دایره {{fundDetail.name}}
+              </span>
+        <div>
+          <small>
+            مدیر :  {{fundDetail.adminName}}
+          </small>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-end mt-3">
+      <!--      <div class="col-6 text-left align-self-center" *ngIf="fundDetail.isAdmin">-->
+      <!--        <a class="btn w-100 rounded-20 bg-lightYellow text-darkYellow" [routerLink]="['/fund/fund-account',fundId]">-->
+      <!--          <small>-->
+      <!--            مدیریت صندوق-->
+      <!--          </small>-->
+      <!--        </a>-->
+      <!--      </div>-->
+      <div class="col-auto text-left align-self-center">
+        <a class="btn w-100 rounded-20 bg-lightYellow text-darkYellow" routerLink="/wallet/deposit">
+          <small>
+            <i class="fa fa-plus text-darkYellow ml-1"></i>
+            افزایش حق عضویت
+          </small>
+        </a>
+      </div>
+    </div>
+    <div class="row mt-2 text-mute">
+      <div class="col">
+        <label>
+          حق عضویت :
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h6 class="text-left text-darkBlue">
+          {{fundDetail.minDepositAmount | amount }}
+          تا {{fundDetail.maxDepositAmount | amount}}
+        </h6>
+      </div>
+    </div>
+    <div class="row text-mute">
+      <div class="col">
+        <label>
+          ظرفیت وام دهی :
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h6 class="text-left text-mute">
+          {{fundDetail.minLoanAmount  | amount  }}
+          تا {{fundDetail.maxLoanAmount  | amount  }}
+        </h6>
+      </div>
+    </div>
+    <div class="row text-mute">
+      <div class="col">
+        <label>
+          مدت اقساط :
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h6 class="text-left text-mute">
+          از {{fundDetail.minLoanInstallment | month}} تا {{fundDetail.maxLoanInstallment | month}}
+        </h6>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-2 mx-0" *ngIf="fundDetail.isAdmin">
+    <div class="col px-0 text-center">
+      <a class="btn btn-block bg-mutePurple text-darkBlue rounded-15 py-3"
+         [routerLink]="['/fund/loans-management',fundId]">
+        مدیریت وام ها
+      </a>
+    </div>
+  </div>
+  <div class="row mt-2 mx-0">
+    <div class="col px-0 text-center">
+      <a class="btn btn-block bg-mutePurple text-darkBlue rounded-15 py-3"
+         [routerLink]="['/fund/priority-list',fundId]">
+        مشاهده لیست الویت ها
+      </a>
+    </div>
+  </div>
+  <div class="bg-mute rounded-20 p-3 mt-2" *ngIf="lendingCalendar">
+    <div class="row">
+      <div class="col-2 text-center" (click)="next()">
+        <i class="fas fa-chevron-right text-purple"></i>
+      </div>
+      <div class="col text-muted text-center">
+        <h5>
+          {{lendingCalendar.shamsiMonthName}} {{lendingCalendar.shamsiYear}}
+        </h5>
+      </div>
+      <div class="col-2 text-center" (click)="previous()">
+        <i class="btn fas fa-chevron-left text-purple"></i>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col text-muted">
+        <h5>
+          موجودی کل پیش بینی شده صندوق :
+        </h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col text-left text-muted">
+        <h5>
+          {{lendingCalendar.predictedAmount  | amount}}
+        </h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col text-muted">
+        <h5>
+          رزرو شده :
+        </h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col text-muted text-left">
+        <h5>
+          {{lendingCalendar.totalReservedAmount  | amount}}
+        </h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col text-muted">
+        <h5>
+          موجودی آزاد پیش بینی شده :
+        </h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col text-muted text-left">
+        <h5>
+          {{lendingCalendar.lendingFreeAmount  | amount}}
+        </h5>
+      </div>
+    </div>
+    <div class="row mt-2 mx-0">
+      <div class="col-auto text-secondary pr-0">
+        <small>
+          وام ها رزرو ماه
+        </small>
+      </div>
+      <div class="col border-bottom align-self-center border-secondary pr-0"></div>
+    </div>
+    <div class="row mt-2" *ngFor="let item of lendingCalendar.loanRequests">
+      <div class="col text-muted">
+        <h5>
+          {{item.memberFullName}}:
+        </h5>
+      </div>
+      <div class="col text-left text-muted">
+        <h5>
+          {{item.amount | amount}}
+        </h5>
+      </div>
+    </div>
+    <div class="row mt-2 mx-0">
+      <div class="col-auto text-secondary pr-0">
+        <small>
+          قسط های ماه
+        </small>
+      </div>
+      <div class="col border-bottom align-self-center border-secondary pr-0"></div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-3" *ngFor="let item of loanInstallments">
+        <img [src]="item.memberImageUrl" class="img-fluid rounded-circle" style="border: 3px solid"
+             [ngClass]="{'border-danger':item.installmentState==190304 , 'border-success' : item.installmentState==190301 , 'border-warning':item.installmentState==190303, 'border-secondary':item.installmentState==190302}"
+             [alt]="item.memberFullName">
+        <img *ngIf="item.memberImageUrl==''" src="assets/images/profile-photo.png" class="img-fluid rounded-circle"
+             style="border: 3px solid"
+             [ngClass]="{'border-danger':item.installmentState==190304 , 'border-success' : item.installmentState==190301 , 'border-warning':item.installmentState==190303, 'border-secondary':item.installmentState==190302}"
+             [alt]="item.memberFullName">
+        <span class="badge badge-light text-truncate text-small">{{item.memberFullName}}</span>
+        <span [ngSwitch]="item.installmentState" class="badge text-small w-100">
+          <small *ngSwitchCase="190304" class="text-danger">
+            قسط معوق
+          </small>
+          <small *ngSwitchCase="190301" class="text-success">
+            پرداخت شده
+          </small>
+          <small *ngSwitchCase="190303" class="text-warning">
+            سررسید امروز
+          </small>
+           <small *ngSwitchCase="190302" class="text-secondary">
+            سررسید نشده
+          </small>
+        </span>
+      </div>
+    </div>
+  </div>
+</ng-container>

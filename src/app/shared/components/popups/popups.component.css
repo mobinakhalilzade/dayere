@@ -1,0 +1,3 @@
+.modal-dialog-centered {
+  min-height: calc(100% - 4rem) !important;
+}

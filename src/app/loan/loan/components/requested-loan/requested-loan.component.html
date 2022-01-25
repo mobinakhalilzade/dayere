@@ -1,0 +1,126 @@
+<ng-container *ngIf="requestLoan">
+  <div class="row mb-2 mx-0">
+    <div class="col text-center text-mute">
+      وضعیت درخواست :
+      <span *ngIf="requestLoan.isReady">
+       آماده دریافت
+      </span>
+      <span *ngIf="rejectedLoan&&!requestLoan.isReady">
+         رد
+      </span>
+      <span *ngIf="!rejectedLoan&&!requestLoan.isReady">
+        در انتظار
+      </span>
+    </div>
+  </div>
+  <div class="bg-lightPurple rounded-20 p-3">
+    <div class="row mt-2 text-mute">
+      <div class="col">
+        <label>
+          وام درخواستی :
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h6 class="text-left text-darkBlue">
+          {{requestLoan.loanAmount | amount}}
+        </h6>
+      </div>
+    </div>
+    <div class="row text-mute">
+      <div class="col">
+        <label>
+          تعداد اقساط :
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h6 class="text-left text-mute">
+          {{requestLoan.installmentsCount}}قسط
+        </h6>
+      </div>
+    </div>
+    <div class="row text-mute">
+      <div class="col">
+        <label>
+          تاریخ دریافت وام :
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h6 class="text-left text-mute">
+          {{requestLoan.loanPayDate}}
+        </h6>
+      </div>
+    </div>
+    <div class="row text-mute">
+      <div class="col">
+        <label>
+          مبلغ تقریبی هر قسط :
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h6 class="text-left text-mute">
+<!--          {{requestLoan.installmentAmount | amount}}-->
+        </h6>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-2 mx-0">
+    <div class="col text-mute">
+      <small>
+        دایره های حامی این وام
+      </small>
+    </div>
+  </div>
+  <a class="row bg-white p-2 mt-2 rounded-20 shadow-sm mx-0" *ngFor="let item of requestLoan.loanGuarantees">
+    <div class="align-self-center">
+      <img *ngIf="item.guarantorImageUrl!==''" [src]="item.guarantorImageUrl" [alt]="item.guarantorName" class="img-fluid">
+      <fund-picture *ngIf="item.guarantorImageUrl==''" [inputName]="item.guarantorName"></fund-picture>
+    </div>
+    <div class="col">
+      <span class="text-mute">
+        دایره {{item.guarantorName}}
+      </span>
+      <div class="text-gray">
+        <small>
+          مدیر : {{item.description}}
+        </small>
+      </div>
+    </div>
+    <div class="col align-self-center text-left text-dark">
+      <span
+        [ngClass]="{'text-success' :item.socialLoanState==190202 , 'text-danger':item.socialLoanState==190203 , 'text-mute':item.socialLoanState==190201}">
+        {{item.socialLoanState | socialLoanState}}
+      </span>
+      <div class="text-gray">
+        <small>
+          مبلغ :  {{item.amount | amount}}
+        </small>
+      </div>
+    </div>
+  </a>
+  <div class="btn-fix">
+    <div class="row">
+      <div class="col text-center text-white">
+        <button *ngIf="requestLoan.isReady" type="button" (click)="reserveState()"
+                class="btn btn-success w-75 rounded-pill">
+          دریافت وام
+        </button>
+        <button *ngIf="rejectedLoan&&!requestLoan.isReady" type="button" (click)="reserveState()"
+                class="btn btn-danger w-75 rounded-pill">
+          تایید رد درخواست
+        </button>
+        <button *ngIf="!rejectedLoan&&!requestLoan.isReady" type="button" (click)="reserveState()"
+                class="btn btn-secondary w-75 rounded-pill disabled">
+          دریافت وام
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-container>

@@ -1,0 +1,21 @@
+.app-loading-screen {
+  background-color: rgba(30, 30, 30, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  z-index: 15;
+  opacity: 1;
+}
+
+@keyframes loading {
+  0% {
+    max-width: 0;
+  }
+}

@@ -1,0 +1,86 @@
+<ng-container>
+  <div class="row mx-0">
+    <div class="col text-mute">
+      <span>
+        مبلغ و تعداد اقساط وام مورد نظر خود را وارد کنید تا با محاسبه، بهترین روش دریافت وام را به شما پیشنهاد دهیم.
+      </span>
+    </div>
+  </div>
+  <form>
+    <div class="row mx-0 mt-3">
+      <div class="col">
+        <text-box label="مبلغ وام درخواستی" type="number">
+        </text-box>
+        <!--              <mat-error *ngIf="isInvalidAmount" class="mb-2">-->
+        <!--                <small class="mr-2">-->
+        <!--                  {{isInvalidAmountMessage}}-->
+        <!--                </small>-->
+        <!--              </mat-error>-->
+      </div>
+    </div>
+    <div class="row mt-1 mx-0">
+      <div class="col-4" *ngFor="let item of amounts">
+        <button type="button" class="btn bg-lightPurple rounded-20"
+                [ngClass]="{'bg-purple , text-light' : item.active}"
+                (click)="setAmount(item.amount)">
+          <small>
+            {{item.amount | amountSeparator}}
+          </small>
+        </button>
+      </div>
+    </div>
+
+    <div class="row mt-4 mx-0">
+      <div class="col">
+        <text-box label="مدت اقساط" type="number">
+        </text-box>
+        <!--              <mat-error *ngIf="isInvalidAmount" class="mb-2">-->
+        <!--                <small class="mr-2">-->
+        <!--                  {{isInvalidAmountMessage}}-->
+        <!--                </small>-->
+        <!--              </mat-error>-->
+      </div>
+    </div>
+    <div class="row mt-1 mx-0">
+      <div class="col-4" *ngFor="let item of times">
+        <button type="button" class="btn bg-lightPurple rounded-20 w-100"
+                [ngClass]="{'bg-purple , text-light' : item.active}"
+                (click)="setTime(item.time)">
+          <small>
+            {{item.time}}
+          </small>
+        </button>
+      </div>
+    </div>
+    <div class="row mt-4 mx-0">
+      <div class="col">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label class="float-right">
+            انتخاب حساب
+          </mat-label>
+          <mat-select class="mb-3">
+            <mat-option *ngFor="let item of suggest">
+              <div class="row">
+                <div class="col pr-0">
+                  <small>
+                    {{item.time}}
+                  </small>
+                </div>
+              </div>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="btn-fix">
+      <div class="row">
+        <div class="col text-center">
+          <button type="button" routerLink="/loan/loan-suggestions"
+                  class="btn btn-link bg-yellow text-dark w-75 rounded-pill">
+            تایید
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-container>

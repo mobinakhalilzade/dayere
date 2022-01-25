@@ -1,0 +1,127 @@
+<ng-container>
+  <ul class="nav nav-tabs tab-fixed pr-0 border-bottom-0" id="myTab" role="tablist">
+    <li class="nav-item w-50 rounded-bottom-right-1">
+      <a class="nav-link pt-3 text-center" id="notifications-tab" data-toggle="tab" href="#notifications" role="tab"
+         aria-controls="notifications"
+         aria-selected="true">اعلانات</a>
+    </li>
+    <li class="nav-item w-50 rounded-bottom-left-1">
+      <a class="nav-link active pt-3 text-center" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+         aria-controls="profile"
+         aria-selected="false">
+        پروفایل من
+      </a>
+    </li>
+  </ul>
+  <ng-template [ngIf]="!loading">
+    <div class="tab-content mt-5" id="myTabContent">
+      <!--notifications-->
+      <div class="tab-pane fade" id="notifications" role="tabpanel" aria-labelledby="notifications-tab">
+        <h6 class="text-info text-center">
+          به زودی ...
+        </h6>
+        <!--        <ng-container>-->
+        <!--          <div class="row mt-2" *ngFor="let item of notifications">-->
+        <!--            <div class="col my-2">-->
+        <!--              <div class="bg-white rounded-20 p-3 pb-4 shadow">-->
+        <!--                <span>-->
+        <!--                  {{item.text}}-->
+        <!--                  <small class="float-left text-mute">-->
+        <!--                    {{item.date}}-->
+        <!--                  </small>-->
+        <!--                </span>-->
+        <!--              </div>-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--        </ng-container>-->
+      </div>
+      <!--my profile-->
+      <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <ng-container>
+          <div class="row mt-3">
+            <div class="col">
+              <div class="bg-lightPurple rounded-20 p-3">
+                <div class="row">
+                  <div class="col-2">
+                    <img *ngIf="!hasAvatar" src="assets/images/profile-photo.png" alt="آواتار" class="img-fluid">
+                    <!--                    <img *ngIf="hasAvatar" src="profileInfo.imageUrl" alt="آواتار">-->
+                  </div>
+                  <div class="col text-mute align-self-center">
+                    <small>
+                      {{profileInfo ? profileInfo.name + " " + profileInfo.lastName : ''}}
+                    </small>
+                  </div>
+                  <div class="col text-left align-self-center">
+                    <a class="btn rounded-20 bg-lightYellow text-darkYellow" routerLink="/wallet/bankAccounts">
+                      <small>
+                        مدیریت حساب
+                      </small>
+                    </a>
+                  </div>
+                </div>
+                <div class="row text-success my-2">
+                  <div class="col">
+                    <label>
+                      موجودی :
+                    </label>
+                  </div>
+                  <div class="col">
+                    <h6 class="text-left">
+                      {{walletBalance ? (walletBalance.balanceAmount | amount) : 0}}
+                    </h6>
+                  </div>
+                </div>
+                <div class="row mb-2 text-mute">
+                  <div class="col">
+                    <small>
+                      قابل برداشت :
+                    </small>
+                  </div>
+                  <div class="col">
+                    <h6 class="text-left">
+                      {{walletBalance ? (walletBalance.withdrawAmount | amount) : 0 }}
+                    </h6>
+                  </div>
+                </div>
+                <div class="row mb-2 text-mute">
+                  <div class="col">
+                    <small>
+                      رزرو شده :
+                    </small>
+                  </div>
+                  <div class="col">
+                    <h6 class="text-left">
+                      {{walletBalance ? (walletBalance.blockedAmount | amount) : 0}}
+                    </h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-center mt-3">
+            <div class="col-5 text-center">
+              <a class="btn bg-yellow rounded-20 px-4 py-2 shadow-xl" routerLink="/wallet/deposit">
+                <img src="assets/svg/deposit-wallet.svg" alt="شارژ">
+                <span class="text-dark d-block">
+                  <small>
+                    شارژ کیف پول
+                  </small>
+                </span>
+              </a>
+            </div>
+            <div class="col-5 text-center">
+              <a class="btn bg-yellow rounded-20 py-2 shadow-xl" routerLink="/wallet/withdraw">
+                <img src="assets/svg/withdraw-wallet.svg" alt="برداشت">
+                <span class="text-dark d-block">
+                  <small>
+                    برداشت از کیف پول
+                  </small>
+                </span>
+              </a>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-template>
+</ng-container>

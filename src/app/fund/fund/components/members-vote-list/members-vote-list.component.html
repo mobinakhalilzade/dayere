@@ -1,0 +1,27 @@
+<ng-container>
+  <div class="row mx-0 justify-content-center mt-3">
+    <div class="col text-mute border-bottom">
+      <p>
+        برای تشکیل این دایره حداقل به 5 رای مثبت نیاز است و {{membersVoteList.length}} نفر به دایره دعوت شده اند.
+      </p>
+      <h4 class="text-center text-darkBlue">
+        {{positiveVotes}}/5
+      </h4>
+    </div>
+  </div>
+  <div class="row mx-0 mt-2 bg-white rounded-20 p-3 shadow" *ngFor="let item of membersVoteList">
+    <div class="col-2">
+      <img *ngIf="item.imageUrl == ''" src="assets/images/profile-photo.png" class="img-fluid" [alt]="item.name">
+      <img *ngIf="item.imageUrl !== ''" [src]="item.imageUrl" class="img-fluid" [alt]="item.name">
+    </div>
+    <div class="col align-self-center text-mute">
+      {{item.name}} {{item.surname}}
+    </div>
+    <div class="col-4 align-self-center">
+      <small class="float-left text-mute"
+             [ngClass]="{'text-danger' : item.memberState == 180102 , 'text-success': item.memberState==180101}">
+        {{item.memberState | voteResult}}
+      </small>
+    </div>
+  </div>
+</ng-container>

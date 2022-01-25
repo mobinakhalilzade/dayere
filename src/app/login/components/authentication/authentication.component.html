@@ -1,0 +1,215 @@
+<ng-container>
+  <ng-template [ngIf]="steps.one">
+    <header>
+      <div class="row mx-0 bg-white py-3 rounded-bottom-1 header">
+        <div class="col text-center align-self-end">
+          <div class="casablanca-font text-purple font-size-title">
+            احراز هویت
+          </div>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="p-4">
+        <div class="row">
+          <div class="col">
+              <p class="text-muted">
+                جهت انجام تراکنش های مالی و بانکی و استفاده از همه ی امکانات سامانه، دایره نیازمند
+                دریافت اطلاعات زیر می باشد.
+              </p>
+          </div>
+        </div>
+        <form [formGroup]="authenticationForm" (ngSubmit)="authStep1(authenticationForm)">
+          <div class="row mt-2">
+            <div class="col">
+              <p dir="rtl">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>تاریخ تولد</mat-label>
+                  <label>
+                    <input matInput class="rounded-pill text-muted" formControlName="birthDate" mask="0000/00/00">
+                  </label>
+                </mat-form-field>
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <text-box label="کد ملی" formControlName="nationalCode" type="number">
+              </text-box>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col">
+              <text-box label="شماره شبا" formControlName="shebaNumber">
+              </text-box>
+            </div>
+          </div>
+          <div class="btn-fix">
+            <div class="row mb-3">
+              <div class="col text-center">
+                <a routerLink="/main/fund" class="text-mute h6">بعدا یادآوری کن</a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col text-center">
+                <button type="submit" [disabled]="loading"
+                        class="btn btn-link bg-yellow text-dark w-75 rounded-pill">
+                  تایید
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </main>
+  </ng-template>
+  <ng-template [ngIf]="steps.two">
+    <header>
+      <div class="row mx-0 bg-white py-3 rounded-bottom-1 header">
+        <div class="col-2">
+        </div>
+        <div class="col text-center align-self-end">
+          <div class="casablanca-font text-purple font-size-title">
+            ورود کد
+          </div>
+        </div>
+        <div class="col-2 align-self-center" (click)="steps.two=false;steps.one=true">
+          <i class="fas fa-chevron-left text-purple fa-2x"></i>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="p-4">
+        <div class="row">
+          <div class="col">
+              <p class="text-muted">
+                کد ارسال شده جهت احراز هویت را وارد کنید.
+              </p>
+          </div>
+        </div>
+        <form [formGroup]="getCodeForm" (ngSubmit)="authStep2(getCodeForm)">
+          <div class="row mt-1">
+            <div class="col">
+              <text-box label="کد احراز هویت" formControlName="code">
+              </text-box>
+            </div>
+          </div>
+          <div class="btn-fix">
+            <div class="row">
+              <div class="col text-center">
+                <button type="submit" [disabled]="loading"
+                        class="btn btn-link bg-yellow text-dark w-75 rounded-pill">
+                  تایید
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </main>
+  </ng-template>
+  <ng-template [ngIf]="steps.three">
+    <header>
+      <div class="row mx-0 bg-white py-3 rounded-bottom-1 header">
+        <div class="col-2">
+        </div>
+        <div class="col text-center align-self-end">
+          <div class="casablanca-font text-purple font-size-title">
+            نمایش اطلاعات
+          </div>
+        </div>
+        <div class="col-2 align-self-center" (click)="steps.three=false;steps.two=true">
+          <i class="fas fa-chevron-left text-purple fa-2x"></i>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="p-4">
+        <form [formGroup]="termsAndIdentityForm" (ngSubmit)="termsAndIdentity(termsAndIdentityForm)">
+          <div class="row">
+            <div class="col-2">
+              <img src="assets/images/profile-photo.png" [alt]="userInfo.fullName">
+            </div>
+            <div class="col text-muted mr-4">
+              <small class="font-weight-bold">
+                {{userInfo.fullName}}
+              </small>
+<!--              <div class="row">-->
+<!--                <div class="col">-->
+<!--                  <button class="btn btn-sm btn-outline-yellow rounded-pill mt-1 px-3">-->
+<!--                    <small>-->
+<!--                      آپلود تصویر-->
+<!--                    </small>-->
+<!--                  </button>-->
+<!--                </div>-->
+<!--              </div>-->
+            </div>
+          </div>
+
+          <div class="text-muted mt-3">
+            <div class="row my-2">
+              <div class="col">
+                <label>
+                  تاریخ تولد :
+                </label>
+                <h6 class="text-left">
+                  {{userInfo.birthDate}}
+                </h6>
+              </div>
+            </div>
+            <div class="row my-2">
+              <div class="col">
+                <label>
+                  کد ملی :
+                </label>
+                <h6 class="text-left">
+                  {{userInfo.nationalCode}}
+                </h6>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label>
+                  شماره شبا :
+                </label>
+                <h6 class="text-left">
+                  {{userInfo.shebaNumber}}
+                </h6>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col">
+                <mat-checkbox formControlName="acceptIdentity"
+                              [ngClass]="{ 'is-invalid': formAccept.acceptIdentity.errors }"
+                              class="example-margin">اطلاعات فوق
+                  متعلق به اینجانب می باشد.
+                </mat-checkbox>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-checkbox formControlName="acceptTerms"
+                              [ngClass]="{ 'is-invalid': formAccept.acceptTerms.errors }"
+                              class="example-margin"><a class="text-purple decoration-underline"
+                                                        href="https://dayere.co/Terms">قوانین و شرایط</a>
+                  را می پذیرم.
+                </mat-checkbox>
+              </div>
+            </div>
+          </div>
+
+          <div class="btn-fix">
+            <div class="row">
+              <div class="col text-center">
+                <button type="submit"
+                        class="btn bg-yellow text-dark w-75 rounded-pill">
+                  تایید
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </main>
+  </ng-template>
+</ng-container>

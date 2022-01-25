@@ -1,0 +1,30 @@
+<ng-container>
+    <div class="bg-gradient h-100">
+        <main class="h-100">
+            <div class="h-100">
+                <div id="carouselIndicators" class="carousel slide h-100" data-ride="carousel" data-touch="true">
+                    <ol class="carousel-indicators pr-0 z-index-0">
+                        <li data-target="#carouselIndicators" *ngFor="let item of intro"
+                            [ngClass]="{'active' : item.active}" [attr.data-slide-to]="item.id"></li>
+                    </ol>
+                    <div class="carousel-inner h-100">
+                        <div class="carousel-item pt-4" *ngFor="let item of intro" [ngClass]="{'active' : item.active}">
+                            <h4 class="text-center text-white">{{item.title}}</h4>
+                            <img class="img-fluid" [src]="item.img" [alt]="item.title">
+                            <p class="text-white p-2">{{item.description}}</p>
+                            <div *ngIf="item.id==2" class="text-center">
+                                <button class="btn bg-yellow rounded-20 w-75" (click)="isAuth()">
+                                 تایید و ادامه
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
+                    </a>
+                    <a class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next">
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+</ng-container>

@@ -1,0 +1,78 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <ng-template *ngIf="popupType.success">
+    <div class="modal-dialog m-3 modal-dialog-centered" role="document">
+      <div class="modal-content rounded-20">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col text-center">
+              <img src="assets/svg/success.svg" alt="">
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col text-center">
+              <h6 class="text-mute">
+                عملیات با موفقیت انجام شد
+              </h6>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-center border-top-0">
+          <button type="button" class="btn btn-success w-75 rounded-pill text-center" data-dismiss="modal">باشه</button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template [ngIf]="popupType.danger">
+    <div class="modal-dialog m-4 modal-dialog-centered" role="document">
+      <div class="modal-content rounded-20">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col text-center">
+              <img src="assets/svg/danger.svg" alt="">
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col text-center">
+              <h6 class="text-mute">
+                عملیات موفقیت آمیز نبود
+              </h6>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-center border-top-0">
+          <button type="button" class="btn btn-danger w-75 rounded-pill text-center" data-dismiss="modal">فهمیدم
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template [ngIf]="popupType.warning">
+    <div class="modal-dialog m-4 modal-dialog-centered" role="document">
+      <div class="modal-content rounded-20">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col text-center">
+              <img src="assets/svg/warning.svg" alt="">
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col text-center">
+              <h6 class="text-mute">
+                آیا از انجام این کار اطمینان دارید؟
+              </h6>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-center border-top-0 text-center d-block">
+          <button type="button" class="btn btn-warning w-75 rounded-pill text-center" (click)="yes(true)">بله</button>
+          <div class="row">
+            <div class="col text-center">
+              <button type="button" class="btn" data-dismiss="modal">خیر</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

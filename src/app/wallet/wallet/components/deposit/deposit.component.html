@@ -1,0 +1,57 @@
+<ng-container>
+  <div class="row mx-0">
+    <div class="col text-mute">
+      <span>
+        برای شارژ کردن کیف پول خود مبلغ مورد نظر را وارد کرده و درگاه پرداخت خود را انتخاب کنید.
+      </span>
+    </div>
+  </div>
+  <form>
+    <div class="row mx-0 mt-3">
+      <div class="col">
+        <text-box label="مبلغ" type="number" [(ngModel)]="amount" [ngModelOptions]="{standalone: true}"
+                  (text)="amountChange($event)">
+        </text-box>
+        <mat-error *ngIf="isInvalidAmount">
+          <small class="mr-2">
+            {{isInvalidAmountMessage}}
+          </small>
+        </mat-error>
+      </div>
+    </div>
+    <div class="row mt-1 mx-0">
+      <div class="col-4" *ngFor="let item of amounts">
+        <button type="button" class="btn bg-lightPurple rounded-20"
+                [ngClass]="{'bg-purple , text-light' : item.active}"
+                (click)="setAmount(item.amount)">
+          <small>
+            {{item.amount | amountSeparator}}
+          </small>
+        </button>
+      </div>
+    </div>
+    <div class="row mt-4 mx-0">
+      <div class="col text-mute">
+        <span>
+          درگاه پرداخت :
+        </span>
+      </div>
+    </div>
+
+    <div class="row mt-3 mx-0">
+      <div class="col-3" *ngFor="let item of chargeIpgList">
+        <img [src]="item.imageUrl" class="img-fluid" [alt]="item.name" *ngIf="item.isActive">
+      </div>
+    </div>
+    <div class="btn-fix">
+      <div class="row">
+        <div class="col text-center">
+          <button type="button" (click)="deposit()" [disabled]="isInvalidAmount"
+                  class="btn btn-link bg-yellow text-dark w-75 rounded-pill">
+            تایید و شارژ
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-container>

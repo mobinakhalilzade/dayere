@@ -1,0 +1,19 @@
+main{
+  direction: ltr;
+}
+
+.carousel-indicators {
+  position: fixed;
+  bottom: 10%;
+}
+
+.carousel-indicators li {
+  width: 5px;
+  height: 5px;
+  border: 2px solid var(--gray);
+  border-radius: 50%;
+}
+
+.carousel.pointer-event {
+  touch-action: pan-left;
+}

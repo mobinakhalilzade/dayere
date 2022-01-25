@@ -1,0 +1,49 @@
+<ng-container *ngIf="allVoting">
+  <h6 *ngIf="allVoting.length==0" class="text-info text-center mt-3">
+    رای گیری ایی وجود ندارد
+  </h6>
+  <a class="row bg-white rounded-20 p-3 pb-4 shadow mx-0 mt-3" *ngFor="let item of allVoting"
+     [routerLink]="['/fund/new-fund-voting', item.fundId]">
+    <div class="col-2">
+      <img *ngIf="item.imageUrl !== ''" [src]="item.imageUrl" [alt]="item.name">
+      <img *ngIf="item.imageUrl == ''" src="assets/svg/add-fund.svg" [alt]="item.name">
+    </div>
+    <div class="col">
+      <span class="text-mute">
+        رای گیری دایره جدید
+        <small class="float-left text-yellow">
+          {{item.remainExpireDate | secToDay | day}}       تا پایان رای گیری
+        </small>
+      </span>
+      <div class="mt-1">
+        <small class="text-gray">
+          دایره {{item.name}} با مدیریت {{item.adminName}}
+        </small>
+      </div>
+    </div>
+  </a>
+  <!--        <div class="row mt-3">-->
+  <!--          <div class="col my-2">-->
+  <!--            <div class="bg-white rounded-20 p-3 pb-4 shadow">-->
+  <!--              <a class="row" routerLink="/fund/new-member-voting">-->
+  <!--                <div class="col-1">-->
+  <!--                  <img src="assets/svg/add-user.svg" alt="رای گیری فرد جدید">-->
+  <!--                </div>-->
+  <!--                <div class="col">-->
+  <!--                  <span class="text-mute">-->
+  <!--                       رای گیری فرد جدید-->
+  <!--                      <small class="float-left text-yellow">-->
+  <!--                    سه روز تا پایان رای گیری-->
+  <!--                  </small>-->
+  <!--                   </span>-->
+  <!--                  <div>-->
+  <!--                    <small class="text-gray">-->
+  <!--                      دایره دوستان با مدیریت علی کاظمی-->
+  <!--                    </small>-->
+  <!--                  </div>-->
+  <!--                </div>-->
+  <!--              </a>-->
+  <!--            </div>-->
+  <!--          </div>-->
+  <!--        </div>-->
+</ng-container>

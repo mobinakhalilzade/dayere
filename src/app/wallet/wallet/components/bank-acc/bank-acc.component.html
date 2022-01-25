@@ -1,0 +1,129 @@
+<ng-container>
+  <div class="row mx-0">
+    <div class="col text-mute">
+      <span>
+        حساب های من :
+      </span>
+    </div>
+  </div>
+  <div id="carouselIndicators" class="carousel slide h-100 m-3" data-ride="carousel" data-touch="true">
+    <div class="carousel-inner">
+      <div class="carousel-item" [ngClass]="{'active':item.bankAccountId==bankAccounts[0].bankAccountId}"
+           *ngFor="let item of bankAccounts">
+        <div class="card shadow-lg rounded-15 z-index-1" data-toggle="collapse"
+             data-target="#deleteAndDefault1" aria-expanded="false" aria-controls="deleteAndDefault1">
+          <div class="card-body p-2">
+            <div id="default" *ngIf="item.isDefault">
+              <small>
+                حساب پیش فرض
+              </small>
+            </div>
+            <h5 class="card-title mb-0">
+              <img [src]="'https://dayere.co/Common/Images/BankIcons/bank_logo_'+item.bankCode+'.png'"
+                   class="img-fluid-logo" [alt]="item.bankName">
+              {{item.bankName}}
+            </h5>
+            <div class="card-text">
+              <div class="row">
+                <div class="col-5 text-left">
+                  <small class="text-mute">
+                    شماره حساب
+                  </small>
+                </div>
+                <div class="col">
+                  <small>
+                    {{item.accountNumber}}
+                  </small>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-5">
+                  <small class="text-mute">
+                    شماره کارت :
+                  </small>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col text-center">
+                  <h6>
+                    {{item.cardNumber ? item.cardNumber : "شماره کارت در دسترس نیست"}}
+                  </h6>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <small class="text-mute">
+                    شماره شبا :
+                  </small>
+                </div>
+                <div class="col text-center">
+                  {{item.shebaNumber}}
+                </div>
+              </div>
+            </div>
+            <img [src]="'https://dayere.co/Common/Images/BankIcons/bank_logo_'+item.bankCode+'.png'"
+                 class="bg-card" [alt]="item.bankName">
+          </div>
+        </div>
+        <!--                  <app-popups></app-popups>-->
+        <div class="collapse z-index-0 deleteAndDefault" id="deleteAndDefault1">
+          <div class="card rounded-bottom-1 card-body bg-purple text-light pt-3 pb-2">
+            <div class="row">
+              <div class="col-3" (click)="delete(item.bankAccountId)">
+                <img src="assets/svg/trash.svg" class="img-fluid" alt="حذف">
+                <small>
+                  حذف
+                </small>
+              </div>
+              <div class="col text-left" *ngIf="!item.isDefault" (click)="setDefault(item.bankAccountId)">
+                <small>
+                  انتخاب به عنوان حساب پیش فرض
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="float-button-bottom">
+    <a routerLink="/wallet/addBankAccount" class="btn bg-yellow rounded-pill shadow-xl">
+      <small>
+        + حساب بانکی جدید
+      </small>
+    </a>
+  </div>
+</ng-container>
+
+<!--modal-->
+<div class="modal fade" id="bankAccDelete" tabindex="-1" role="dialog" aria-labelledby="bankAccDeleteLabel"
+     aria-hidden="true">
+  <div class="modal-dialog m-4 modal-dialog-centered" role="document">
+    <div class="modal-content rounded-20">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col text-center">
+            <img src="assets/svg/warning.svg" alt="">
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col text-center">
+            <h6 class="text-mute">
+              آیا از انجام این کار اطمینان دارید؟
+            </h6>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center border-top-0 text-center d-block">
+        <button type="button" class="btn btn-warning w-75 rounded-pill text-center" (click)="confirmDelete()">بله</button>
+        <div class="row">
+          <div class="col text-center">
+            <button type="button" class="btn" data-dismiss="modal">خیر</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

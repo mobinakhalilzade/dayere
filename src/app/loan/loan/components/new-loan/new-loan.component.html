@@ -1,0 +1,48 @@
+<ng-container>
+  <div class="row my-2 mx-0">
+    <div class="col text-mute">
+      <span>
+        یک یا چند دایره را برای حمایت از وام خود تعیین کنید تا بهترین وام قابل دریافت از آنها برای شما محاسبه شود.
+        همچنین برای کسب اطلاعات بیشتر از بهترین پیشنهادات دریافت وام برای شما از گزینه ی تخمین وام استفاده کنید.
+      </span>
+    </div>
+  </div>
+  <div class="mx-2">
+    <h5 *ngIf="freeFunds.length==0" class="text-center text-info">
+      دایره ی آزاد  برای ایجاد وام ندارید.
+    </h5>
+    <mat-checkbox class="w-100" *ngFor="let item of freeFunds" (change)="selectedFunds($event,item.fundId)">
+      <a class="row bg-white p-2 mt-2 mr-1 rounded-20 shadow-sm mx-0">
+        <div class="align-self-center px-0">
+          <fund-picture *ngIf="item.imageUrl==''" [inputName]="item.name"></fund-picture>
+          <img *ngIf="item.imageUrl!==''" [src]="item.imageUrl" class="img-fluid" [alt]="item.name">
+        </div>
+        <div class="col">
+          <span class="text-mute">
+            دایره  {{item.name}}
+          </span>
+          <div class="text-gray">
+            <small>
+              مدیر :  {{item.adminName}}
+            </small>
+          </div>
+        </div>
+      </a>
+    </mat-checkbox>
+  </div>
+  <div class="btn-fix">
+<!--    <div class="row mb-3">-->
+<!--      <div class="col text-center">-->
+<!--        <a routerLink="/loan/loan-estimation" class="text-mute h6">تخمین وام</a>-->
+<!--      </div>-->
+<!--    </div>-->
+    <div class="row">
+      <div class="col text-center">
+        <a type="submit"  (click)="loanCalculate()"
+           class="btn btn-link bg-yellow text-dark w-75 rounded-pill">
+          تایید و محاسبه وام
+        </a>
+      </div>
+    </div>
+  </div>
+</ng-container>

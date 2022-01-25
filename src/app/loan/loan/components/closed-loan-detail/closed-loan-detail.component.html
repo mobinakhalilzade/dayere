@@ -1,0 +1,87 @@
+<ng-container *ngIf="loanDetail">
+  <div class="bg-lightPurple rounded-20 p-3">
+    <div class="row mb-2">
+      <div class="col text-center text-mute">
+        <h5>
+          وام شماره : {{loanDetail.loanNumber}}
+        </h5>
+      </div>
+    </div>
+    <div class="row mt-2 text-mute">
+      <div class="col">
+        <label>
+          وام دریافتی :
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h6 class="text-left text-darkBlue">
+          {{loanDetail.amount | amount}}
+        </h6>
+      </div>
+    </div>
+    <div class="row text-mute">
+      <div class="col">
+        <label>
+          نوع اقساط :
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h6 class="text-left text-mute">
+          قرض الحسنه {{loanDetail.feesAmount | amount}}
+        </h6>
+      </div>
+    </div>
+    <div class="row text-mute">
+      <div class="col">
+        <label>
+          تاریخ دریافت وام :
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h6 class="text-left text-mute">
+          {{loanDetail.confirmDate}}
+        </h6>
+      </div>
+    </div>
+    <div class="row text-mute">
+      <div class="col">
+        <label>
+          دایره های حامی:
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h6 class="text-left text-mute" *ngFor="let item of loanDetail.loanGuarantees"
+            [ngClass]="{'text-truncate':loanDetail.loanGuarantees.length>2}">
+          {{item.description}}
+        </h6>
+      </div>
+    </div>
+  </div>
+    <div class="row bg-white p-2 mt-2 mr-1 rounded-20 shadow-sm mx-0" *ngFor="let item of loanDetail.installments">
+      <div class="col">
+        <span class="text-mute">
+          قسط {{item.installmentNumber | persianNumber}}
+        </span>
+        <div class="text-gray">
+          <small>
+            مبلغ : {{item.amount | amount}}
+          </small>
+        </div>
+      </div>
+      <div class="col align-self-center text-left text-dark">
+        <div *ngIf="item.installmentState==190301" class="text-success">
+          <small>
+            تاریخ پرداخت : {{item.paymentDate}}
+          </small>
+        </div>
+      </div>
+    </div>
+</ng-container>

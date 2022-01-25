@@ -1,0 +1,436 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+:root {
+  --purple: #6844CC;
+  --midPurple: #BC8EFF;
+  --darkPurple: #3A2270;
+  --lightPurple: #E2CEFF;
+  --violet: #6D41AE;
+  --yellow: #FF9900;
+  --lightYellow: #F5D1B1;
+  --darkYellow: #CC6600;
+  --gray: #cccccc;
+  --mute: #9F9F9F;
+  --lightWhite: #FAFAFA;
+  --darkBlue: #003366;
+  --mutePurple: #9B7AE5;
+}
+
+@font-face {
+  font-family: "yekan";
+  src: url(assets/font/yekan/BYekan.ttf);
+}
+
+@font-face {
+  font-family: "casablanca";
+  src: url(assets/font/casablanca/Mj_Casablanca-Heavy.ttf);
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  direction: rtl;
+  text-align: right;
+  margin: 0;
+  font-family: "yekan", sans-serif !important;
+  background-color: var(--lightWhite) !important;
+}
+
+body.light {
+  background-color: var(--lightWhite) !important;
+}
+
+body.purple {
+  background-image: linear-gradient(to bottom, #6d41ae, #4a348c, #2b266a, #101749, #000029);
+  background-repeat: no-repeat;
+}
+
+.casablanca-font {
+  font-family: "casablanca", sans-serif;
+}
+
+/*bg*/
+.bg-purple {
+  background-color: var(--purple) !important;
+}
+
+.bg-yellow {
+  background-color: var(--yellow);
+}
+
+.bg-lightPurple {
+  background-color: var(--lightPurple);
+}
+
+.bg-mute {
+  background-color: var(--mute);
+}
+
+.bg-gray {
+  background-color: var(--gray);
+}
+
+.bg-lightYellow {
+  background-color: var(--lightYellow);
+}
+
+.bg-midPurple {
+  background-color: var(--midPurple);
+}
+
+.bg-gradient {
+  background-image: linear-gradient(to bottom, #6d41ae, #4a348c, #2b266a, #101749, #000029);
+}
+
+.bg-violet {
+  background-color: var(--violet);
+}
+
+.bg-mutePurple {
+  background-color: var(--mutePurple);
+}
+
+/*text*/
+.text-purple {
+  color: var(--purple);
+}
+
+.text-yellow {
+  color: var(--yellow);
+}
+
+.text-gray {
+  color: var(--gray);
+}
+
+.text-mute {
+  color: var(--mute);
+}
+
+.text-darkYellow {
+  color: var(--darkYellow);
+}
+
+.text-darkBlue {
+  color: var(--darkBlue);
+}
+
+/*btn*/
+.btn-outline-yellow {
+  background-color: transparent;
+  color: var(--yellow);
+  border: 2px solid var(--yellow);
+}
+
+.btn-fix {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  background-color: var(--lightWhite);
+  padding-bottom: 1rem !important;
+  padding-top: 1rem !important;
+}
+
+.float-button {
+  position: fixed;
+  bottom: 90px;
+}
+
+.float-button-bottom {
+  position: fixed;
+  bottom: 35px;
+}
+
+/*z-index*/
+.z-index-0 {
+  z-index: 0;
+}
+
+.z-index-1 {
+  z-index: 1;
+}
+
+.z-index-9 {
+  z-index: 9;
+}
+
+/*border*/
+
+.rounded-20 {
+  border-radius: 20px;
+}
+
+.rounded-15 {
+  border-radius: 15px;
+}
+
+.rounded-bottom-1 {
+  border-bottom-right-radius: 1rem !important;
+  border-bottom-left-radius: 1rem !important;
+}
+
+.rounded-top-1 {
+  border-top-right-radius: 1rem !important;
+  border-top-left-radius: 1rem !important;
+}
+
+.rounded-bottom-right-1 {
+  border-bottom-right-radius: 1rem !important;
+}
+
+.rounded-bottom-left-1 {
+  border-bottom-left-radius: 1rem !important;
+}
+
+/*shadow*/
+/*other*/
+.shadow-xl {
+  box-shadow: 0 8px 5px #adadad;
+}
+
+.dir-rtl {
+  direction: rtl;
+}
+
+.dir-ltr {
+  direction: ltr;
+}
+
+.decoration-underline {
+  text-decoration-line: underline;
+}
+
+.img-fluid-logo-sm {
+  max-width: 55%;
+  height: auto;
+}
+
+.font-size-title {
+  font-size: 7vw;
+}
+
+a, a:hover, a:active, a:visited, a:focus {
+  text-decoration: none;
+}
+
+ul {
+  padding-inline-start: 20px !important;
+}
+
+.btn-hover-yellow:hover {
+  color: var(--yellow);
+  text-decoration: none;
+}
+
+/*tab*/
+.tab-fixed {
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  top: 10%;
+  right: 0;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+  color: var(--gray) !important;
+  background-color: var(--purple);
+  border-bottom-right-radius: 1rem !important;
+  border-bottom-left-radius: 1rem !important;
+}
+
+.nav-tabs .nav-item {
+  background-color: var(--gray);
+  border-color: var(--gray);
+}
+
+.nav-tabs .nav-item .nav-link {
+  color: #707070;
+}
+
+/*header and main in modules*/
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 11%;
+  z-index: 9;
+  box-shadow: 0 0 5px 0 #5d5d5d;
+}
+
+.main {
+  position: absolute;
+  top: 11%;
+  width: 100%;
+  height: 100%;
+  background-color: var(--lightWhite);
+  margin-top: .5rem;
+  padding: 0 0.5rem;
+}
+
+/*mat*/
+.mat-form-field, .mat-checkbox, .mat-tab-group, .mat-tab-label, .mat-tab-link, .mat-stepper-horizontal, .mat-simple-snackbar, .mat-radio-button {
+  font-family: 'yekan', sans-serif;
+}
+
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: var(--yellow) !important;
+}
+
+[dir=rtl] .mat-form-field-appearance-outline .mat-form-field-outline-end {
+  border-radius: 35px 0 0 35px !important;
+}
+
+[dir=rtl] .mat-form-field-appearance-outline .mat-form-field-outline-start {
+  border-radius: 0 35px 35px 0 !important;
+  width: 25px !important;
+}
+
+[dir=rtl] .mat-form-field-label {
+  transform-origin: 100% 0;
+  left: auto;
+  right: 18px !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0 0 0.9em 0 !important;
+}
+
+.mat-form-field-infix {
+  border-top: .54375em solid transparent !important;
+}
+
+.mat-form-field-label-wrapper {
+  top: -1.0375em !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-label {
+  top: 1.7em !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-start {
+  border-radius: 5px 0 0 5px;
+  border-left-style: none !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-end {
+  border: 2px solid currentColor !important;
+  border-right-style: none !important;
+  min-width: 5px;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-start {
+  border: 2px solid currentColor !important;
+  border-left-style: none !important;
+  min-width: 5px;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-gap {
+  border: 2px solid currentColor !important;
+  border-left-style: none !important;
+  border-right-style: none !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-end {
+  border-radius: 0 5px 5px 0;
+  border-right-style: none !important;
+  flex-grow: 1;
+}
+
+.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-outline-gap {
+  border-top-color: transparent !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: rgb(188 169 169 / 56%) !important;
+}
+
+.mat-form-field-wrapper {
+  padding-bottom: 0 !important;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-label {
+  color: var(--yellow);
+}
+
+.mat-form-field .mat-form-field-label {
+  color: var(--mute);
+}
+
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: var(--yellow);
+}
+
+.mat-checkbox-inner-container {
+  margin-right: 0 !important;
+  margin-left: 8px !important;
+}
+
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: var(--yellow) !important;
+}
+
+.mat-tab-label {
+  width: 50% !important;
+}
+
+/*stepper*/
+
+.mat-horizontal-stepper-header .mat-step-icon {
+  margin-left: -8px;
+  flex: none;
+}
+
+.mat-step-header .mat-step-icon-selected {
+  background-color: var(--white);
+  color: var(--yellow);
+  border: 2px solid var(--yellow);
+}
+
+.mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
+  background-color: var(--yellow);
+  color: #000;
+}
+
+.mat-horizontal-content-container {
+  overflow: hidden;
+  padding: 0 !important;
+}
+
+.mat-step-header {
+  pointer-events: none !important;
+}
+
+/*radio*/
+.mat-radio-outer-circle {
+  border-color: var(--yellow) !important;
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle, .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple), .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple, .mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
+  background-color: var(--yellow) !important;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: transparent !important;
+}
+
+.mat-checkbox-layout {
+  width: 100% !important;
+}
+
+.mat-checkbox-layout .mat-checkbox-label {
+  width: 100% !important;
+}
+
+.mat-simple-snackbar {
+  float: right !important;
+}
+
+.custom .mat-horizontal-stepper-header-container{
+  width: 25% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}

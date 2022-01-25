@@ -1,0 +1,17 @@
+.circle {
+  position: relative;
+  display: inline-flex;
+  min-width: 3em;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: var(--darkPurple);
+  color: #fff;
+}
+
+.circle:after {
+  content: '';
+  padding-top: 100%;
+  display:table;
+}

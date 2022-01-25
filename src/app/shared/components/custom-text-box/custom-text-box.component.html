@@ -1,0 +1,9 @@
+<p dir="rtl" class="mb-1">
+  <mat-form-field appearance="outline" class="w-100" >
+    <mat-label>{{label}}</mat-label>
+    <input matInput class="rounded-pill text-muted" [placeholder]="placeholder" [required]="required" [attr.type]="type"
+           [disabled]="disabled" (input)="onChange()" [minlength]="minlength" (change)="onChange()" (blur)="onTouchedFn()"
+           [(ngModel)]="data" [ngModelOptions]="{standalone: true}" (ngModelChange)="onChange()">
+  </mat-form-field>
+</p>
+

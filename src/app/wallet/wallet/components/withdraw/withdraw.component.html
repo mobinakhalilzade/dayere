@@ -1,0 +1,152 @@
+  <ng-container>
+  <div class="row mx-0">
+    <div class="col text-mute">
+      <span>
+        مبلغ برداشتی  خود را وارد کنید. وجه مورد نظر حداکثر تا یک روز کاری آینده به حساب شما واریز خواهد شد.
+      </span>
+    </div>
+  </div>
+  <form>
+    <div class="row mx-0 mt-3">
+      <div class="col">
+        <text-box label="مبلغ" [(ngModel)]="amount" [ngModelOptions]="{standalone: true}" type="number"
+                  (text)="initialWithdraw($event)">
+        </text-box>
+        <mat-error *ngIf="isInvalidAmount" class="mb-2">
+          <small class="mr-2">
+            {{isInvalidAmountMessage}}
+          </small>
+        </mat-error>
+      </div>
+    </div>
+    <div class="row mx-0">
+      <div class="col-4" *ngFor="let item of amounts">
+        <button type="button" class="btn bg-lightPurple rounded-20"
+                [ngClass]="{'bg-purple , text-light' : item.active}"
+                (click)="setAmount(item.amount)">
+          <small>
+            {{item.amount | amountSeparator}}
+          </small>
+        </button>
+      </div>
+    </div>
+    <div class="row mt-4 mx-0">
+      <div class="col">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label class="float-right">
+            انتخاب حساب
+          </mat-label>
+          <mat-select class="mb-3" [(ngModel)]="accountId" [ngModelOptions]="{standalone: true}">
+            <mat-option *ngFor="let item of bankAccounts" [value]="item.accountId">
+              <div class="row">
+                <div class="col pr-0">
+                  <small>
+                    {{item.shebaNumber}}
+                  </small>
+                </div>
+                <div class="col-2 pl-0">
+                  <img [src]="'https://dayere.co/Common/Images/BankIcons/bank_logo_'+item.bankCode+'.png'"
+                       class="img-fluid-logo-sm" [alt]="item.bankName">
+                </div>
+              </div>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row mt-3 mb-1 text-mute mx-0">
+      <div class="col">
+        <small>
+          کارمزد :
+        </small>
+      </div>
+      <div class="col text-left">
+        <small>
+          {{withdrawInfo ? (withdrawInfo.withdrawFee | amount) : 0}}
+        </small>
+      </div>
+    </div>
+    <div class="row my-1 text-mute mx-0">
+      <div class="col">
+        <small>
+          مبلغ کل برداشتی :
+        </small>
+      </div>
+      <div class="col text-left">
+        {{withdrawInfo ? (withdrawInfo.totalAmount | amount) : 0}}
+      </div>
+    </div>
+    <div class="btn-fix">
+      <div class="row">
+        <div class="col text-center">
+          <button type="button" (click)="withdraw()" [disabled]="isInvalidAmount"
+                  class="btn btn-link bg-yellow text-dark w-75 rounded-pill">
+            تایید و برداشت
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-container>
+
+
+
+<!--modal-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog m-4 modal-dialog-centered" role="document">
+    <div class="modal-content rounded-20">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col text-center">
+            <img src="assets/svg/warning.svg" alt="">
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col text-center">
+            <h6 class="text-mute">
+              آیا از انجام این کار اطمینان دارید؟
+            </h6>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center border-top-0 text-center d-block">
+        <button type="button" class="btn btn-warning w-75 rounded-pill text-center" (click)="confirmWithdraw()">بله</button>
+        <div class="row">
+          <div class="col text-center">
+            <button type="button" class="btn" data-dismiss="modal">خیر</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="dangerModal" tabindex="-1" role="dialog" aria-labelledby="dangerModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog m-4 modal-dialog-centered" role="document">
+    <div class="modal-content rounded-20">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col text-center">
+            <img src="assets/svg/danger.svg" alt="">
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col text-center">
+            <h6 class="text-mute">
+            مبلغ برداشتی از کیف پول شما بیشتر است
+            </h6>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-center border-top-0">
+        <button type="button" class="btn btn-danger w-75 rounded-pill text-center" data-dismiss="modal">فهمیدم
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,43 @@
+<ng-container>
+  <div class="row mx-0">
+    <div class="col text-mute">
+      <span>
+        برای اضافه کردن حساب جدید ،شماره شبا یا شماره کارت مورد نظر خود را وارد کنید.
+      </span>
+    </div>
+  </div>
+  <form [formGroup]="addAccountForm" (ngSubmit)="add(addAccountForm)">
+    <div class="row mx-0 mt-3">
+      <div *ngIf="!isCard" class="col">
+        <text-box label="شماره شبا" formControlName="number">
+        </text-box>
+      </div>
+      <div *ngIf="isCard" class="col">
+        <text-box label="شماره کارت" formControlName="number">
+        </text-box>
+      </div>
+    </div>
+    <div class="btn-fix">
+      <div class="row">
+        <div class="col text-center">
+          <button type="button" (click)="isCard=!isCard" class="btn text-yellow">
+            <span *ngIf="isCard">
+              اضافه کردن با شماره شبا
+            </span>
+            <span *ngIf="!isCard">
+              اضافه کردن با شماره کارت
+            </span>
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col text-center">
+          <button type="submit"
+                  class="btn btn-link bg-yellow text-dark w-75 rounded-pill">
+            تایید
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-container>

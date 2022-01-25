@@ -1,0 +1,47 @@
+<ng-container>
+  <div class="row" *ngIf="transactions.length==0">
+    <div class="col text-center">
+      <h6 class="text-info mt-5">
+        شما تراکنشی ندارید
+      </h6>
+    </div>
+  </div>
+  <div class="row" *ngIf="transactions">
+    <div class="col">
+      <div class="row" *ngFor="let item of transactions">
+        <div class="col my-2">
+          <div class="bg-white rounded-20 p-3 shadow">
+            <div class="row">
+              <div class="col-2 align-self-center">
+                <img *ngIf="item.transactionType===160101" src="assets/svg/deposit.svg" alt="واریز">
+                <img *ngIf="item.transactionType===160102" src="assets/svg/withdraw.svg" alt="برداشت">
+              </div>
+              <div class="col pr-0">
+                <div class="h6 m-0"
+                     [ngClass]="{'text-success' : item.transactionType===160101 , 'text-danger' : item.transactionType===160102}">
+                  {{item.amount | amount}}
+                </div>
+                <div class="text-mute">
+                  <small>
+                    موجودی :
+                    {{item.balanceAmount | amount}}
+                  </small>
+                </div>
+                <div class="text-mute">
+                  <small>
+                    {{item.logDescription}}
+                  </small>
+                </div>
+              </div>
+              <div class="col-4 align-self-center text-left">
+                <small class="text-gray">
+                  {{item.shamsiDate}}
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

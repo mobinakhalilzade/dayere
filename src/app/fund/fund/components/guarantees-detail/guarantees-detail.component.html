@@ -1,0 +1,128 @@
+<ng-container>
+  <div class="bg-lightPurple rounded-20 p-3" *ngIf="guaranteeDetail&&fundDetail">
+    <div class="row">
+      <div class="col-2">
+        <img *ngIf="fundDetail.imageUrl!==''" [src]="fundDetail.imageUrl" [alt]="fundDetail.name" class="img-fluid">
+        <fund-picture *ngIf="fundDetail.imageUrl==''" [inputName]="fundDetail.name"></fund-picture>
+      </div>
+      <div class="col text-mute align-self-center pr">
+        <h6>
+          دایره {{fundDetail.name}}
+          <div>
+            <small>
+              مدیر: {{fundDetail.adminName}}
+            </small>
+          </div>
+        </h6>
+      </div>
+    </div>
+    <div class="row mt-2 text-mute">
+      <div class="col">
+        <label>
+          ضمانت من برای دیگران :
+        </label>
+      </div>
+    </div>
+    <div class="row mt-2 text-mute">
+      <div class="col">
+        <h6 class="text-left text-danger">
+          {{guaranteeDetail.sumTotalYourGuarantee | amountSeparator |amount}}
+        </h6>
+      </div>
+    </div>
+    <div class="row text-mute">
+      <div class="col">
+        <label>
+          ضمانت دیگران برای من
+        </label>
+      </div>
+    </div>
+    <div class="row text-mute">
+      <div class="col">
+        <h6 class="text-left text-success">
+          {{guaranteeDetail.sumTotalGuaranteeOthers | amountSeparator |amount}}
+        </h6>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="guaranteeDetail">
+    <div class="row mx-0 bg-white p-2 mt-2 rounded-20 shadow-sm"
+         (click)="showDetail = !showDetail;loanGuaranteeDetailToPerson(item.memberId)"
+         *ngFor="let item of guaranteeDetail.loanGuaranteeDetails">
+      <div class="col-1 align-self-center px-0">
+        <img *ngIf="item.memberImageUrl==''" src="assets/images/profile-photo.png" class="img-fluid"
+             [alt]="item.memberFullName">
+        <img *ngIf="item.memberImageUrl!==''" [src]="item.memberImageUrl" class="img-fluid" [alt]="item.memberFullName">
+      </div>
+      <div class="col-4 align-self-center">
+      <span class="text-mute">
+        {{item.memberFullName}}
+      </span>
+      </div>
+      <div class="col align-self-center text-left">
+        <div>
+          <small class="text-danger">
+            ضمانت شما به فرد :  {{item.totalYourGuarantee | amount |amountSeparator}}
+          </small>
+        </div>
+        <div class="text-success">
+          <small>
+            ضمانت فرد به شما :  {{item.totalGuaranteeOthers | amount |amountSeparator}}
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<div *ngIf="showDetail&&sheetInfo" class="detailBox bg-white shadow-lg rounded-top" (clickOutside)="clickOutside()">
+  <div class="row mx-0 mt-3 justify-content-center">
+    <div class="col text-center text-mute">
+      <img *ngIf="sheetInfo.memberImageUrl==''" src="assets/images/profile-photo.png" class="img-fluid" style="width: 15%"
+           [alt]="sheetInfo.memberFullName">
+      <img *ngIf="sheetInfo.memberImageUrl!==''" [src]="sheetInfo.memberImageUrl" class="img-fluid" style="width: 15%"
+           [alt]="sheetInfo.memberFullName">
+      <div>
+        <span class="h5">
+         {{sheetInfo.memberFullName}}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row mx-0 mt-3 text-mute">
+    <div class="col">
+      ضمانت شما به فرد : {{sheetInfo.totalYourGuarantee | amountSeparator |amount}}
+      <div class="mt-2">
+        باقیمانده : {{sheetInfo.remainYourGuarantee | amountSeparator |amount}}
+      </div>
+    </div>
+    <div class="col text-left">
+      <canvas baseChart
+              [data]="chartDataPersonToOthers"
+              [chartType]="chartType"
+              [colors]="chartColorsRed"
+              [options]="chartOptions"
+              [labels]="chartLabelsPersonToOthers"
+              [legend]="chartLegend">
+      </canvas>
+
+    </div>
+  </div>
+  <div class="row mx-0 mt-3 text-mute">
+    <div class="col">
+      ضمانت فرد به شما : {{sheetInfo.totalGuaranteeOthers | amountSeparator |amount}}
+      <div class="mt-2">
+        باقیمانده : {{sheetInfo.remainGuaranteeOthers | amountSeparator |amount}}
+      </div>
+    </div>
+    <div class="col text-left">
+      <canvas baseChart
+              [data]="chartDataOthersToPerson"
+              [colors]="chartColorsSuccess"
+              [chartType]="chartType"
+              [options]="chartOptions"
+              [labels]="chartLabelsOthersToPerson"
+              [legend]="chartLegend">
+      </canvas>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+<ng-container>
+  <div class="bg-lightPurple rounded-20 p-3">
+    <div class="row">
+      <div class="col text-mute">
+        <label>
+          موجودی دایره :
+        </label>
+      </div>
+      <div class="col text-darkBlue text-left">
+        <h5 class="mb-0">
+          1000000 ریال
+        </h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col text-mute">
+        <label>
+          قابل برداشت :
+        </label>
+      </div>
+      <div class="col text-darkBlue text-left">
+        <h5 class="mb-0">
+          1000000 ریال
+        </h5>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-6">
+        <a class="btn rounded-20 bg-lightYellow text-darkYellow w-100" routerLink="/wallet/deposit">
+          <small>
+            شارژ
+          </small>
+        </a>
+      </div>
+      <div class="col-6">
+        <a class="btn rounded-20 bg-lightYellow text-darkYellow w-100" routerLink="/wallet/deposit">
+          <small>
+            برداشت
+          </small>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="row mx-0" *ngFor="let item of transaction">
+    <div class="col my-2 px-0">
+      <div class="bg-white rounded-20 p-3 shadow">
+        <div class="row">
+          <div class="col-2 align-self-center">
+            <img *ngIf="item.type==160102" src="assets/svg/deposit.svg" alt="واریز">
+            <img *ngIf="item.type==160101" src="assets/svg/withdraw.svg" alt="برداشت">
+          </div>
+          <div class="col pr-0">
+            <div class="h6" [ngClass]="{'text-success' : item.type==160102 , 'text-danger' : item.type==160101}">
+              {{item.amount | amount}}
+            </div>
+            <div class="text-mute">
+              <small>
+                {{item.description}}
+              </small>
+            </div>
+          </div>
+          <div class="col-3 align-self-center">
+            <small class="text-gray">
+              {{item.shamsiDate}}
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

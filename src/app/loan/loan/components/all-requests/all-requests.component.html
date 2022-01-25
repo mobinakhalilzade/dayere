@@ -1,0 +1,29 @@
+<ng-container>
+  <h5 *ngIf="allRequestsLoan.length==0" class="text-info text-center mt-3">
+    شما درخواستی ندارید
+  </h5>
+  <a class="row rounded-20 p-3 pb-4 shadow mx-0 mt-3" *ngFor="let item of allRequestsLoan"
+     [routerLink]="['/loan/requested-loans', item.fundId]"
+     [ngClass]="{'bg-mute':!item.isReady , 'bg-white':item.isReady}">
+    <div class="col">
+      <span class="text-dark">
+        وام درخواستی {{item.requestDate}}
+      </span>
+      <div class="mt-1" *ngFor="let item of item.loanGuarantees">
+        <span class="badge badge-pill badge-dark"
+              [ngClass]="{'badge-success':item.socialLoanState==190202 , 'badge-danger':item.socialLoanState==190203}">{{item.guarantorName}}</span>
+      </div>
+    </div>
+    <div class="col-4 align-self-center text-left">
+      <small class="text-success" *ngIf="allConfirm">
+        تایید شده
+      </small>
+      <small class="text-danger" *ngIf="allReject">
+        رد شده
+      </small>
+      <small class="text-dark" *ngIf="nothing">
+        در حال بررسی
+      </small>
+    </div>
+  </a>
+</ng-container>

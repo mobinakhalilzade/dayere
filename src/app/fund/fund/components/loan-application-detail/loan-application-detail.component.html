@@ -1,0 +1,97 @@
+<ng-container *ngIf="dataDetail">
+  <div class="bg-lightPurple rounded-20 p-3">
+    <div class="row">
+      <div class="col-2">
+        <img *ngIf="dataDetail.memberImageUrl!==''" [src]="dataDetail.memberImageUrl" class="img-fluid"
+             [alt]="dataDetail.memberFullName">
+        <img *ngIf="dataDetail.memberImageUrl==''" src="assets/images/profile-photo.png" class="img-fluid"
+             [alt]="dataDetail.memberFullName">
+      </div>
+      <div class="col text-mute align-self-center pr-0">
+        <h5 class="mb-0">
+          {{dataDetail.memberFullName}}
+        </h5>
+      </div>
+    </div>
+    <div class="row mt-3 text-mute">
+      <div class="col">
+        <label>
+          وام درخواستی از دایره شما :
+        </label>
+      </div>
+    </div>
+    <div class="row text-mute">
+      <div class="col">
+        <h6 class="text-left text-darkBlue">
+          {{dataDetail.loanAmount | amount}}
+        </h6>
+      </div>
+    </div>
+    <div class="row text-mute">
+      <div class="col">
+        <label>
+          تعداد اقساط
+        </label>
+      </div>
+    </div>
+    <div class="row text-mute">
+      <div class="col">
+        <h6 class="text-left text-darkBlue">
+          {{dataDetail.installmentsCount}} قسط
+        </h6>
+      </div>
+    </div>
+  </div>
+  <div class="row my-3 mx-0">
+    <div class="col">
+      <span class="text-mute">
+        در صورت موافقت با پرداخت وام ، مبلغ وام پس از موافقت کاربر از حساب دایره کسر و به کیف پول فرد واریز می شود .
+      </span>
+    </div>
+  </div>
+  <div class="row mx-0 text-mute">
+    <div class="col">
+      <label>
+        موعد واریز وام
+      </label>
+    </div>
+  </div>
+  <div class="row mx-0 text-mute">
+    <div class="col">
+      <h6 class="text-left text-mute">
+        {{dataDetail.loanPayDate}}
+      </h6>
+    </div>
+  </div>
+  <div class="row mx-0 text-mute">
+    <div class="col">
+      <label>
+        مبلغ هر قسط
+      </label>
+    </div>
+  </div>
+  <div class="row mx-0 text-mute">
+    <div class="col">
+      <h6 class="text-left text-mute">
+        {{dataDetail.installmentAmount | amount}}
+      </h6>
+    </div>
+  </div>
+  <div class="btn-fix">
+    <div class="row mb-2">
+      <div class="col text-center">
+        <button type="button" class="btn text-danger" (click)="rejectRequest(dataDetail.fundId,dataDetail.loanId)">
+          مخالفت
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col text-center">
+        <button type="submit" (click)="confirmRequest(dataDetail.fundId,dataDetail.loanId)"
+                class="btn btn-link btn-success text-light mb-4 w-75 rounded-pill">
+          موافقت با واریز وام
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-container>
